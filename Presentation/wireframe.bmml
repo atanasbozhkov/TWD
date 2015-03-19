@@ -1,0 +1,88 @@
+<mockup version="1.0" skin="sketch" fontFace="Balsamiq Sans" measuredW="1247" measuredH="714" mockupW="802" mockupH="688">
+  <controls>
+    <control controlID="0" controlTypeID="com.balsamiq.mockups::BrowserWindow" x="445" y="26" w="800" h="688" measuredW="450" measuredH="400" zOrder="0" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Rate%20My%20Burger%0Ahttp%3A//ratemyburger.com</text>
+      </controlProperties>
+    </control>
+    <control controlID="1" controlTypeID="com.balsamiq.mockups::SearchBox" x="693" y="124" w="433" h="-1" measuredW="247" measuredH="25" zOrder="3" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Search%20for%20a%20burger%20or%20a%20burger%20place</text>
+      </controlProperties>
+    </control>
+    <control controlID="3" controlTypeID="com.balsamiq.mockups::Image" x="578" y="260" w="115" h="111" measuredW="500" measuredH="384" zOrder="2" locked="false" isInGroup="-1">
+      <controlProperties>
+        <src>http%3A//farm8.staticflickr.com/7242/7293192474_afbdbcb19e.jpg</src>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="7" controlTypeID="com.balsamiq.mockups::VerticalTabBar" x="447" y="98" w="800" h="592" measuredW="200" measuredH="212" zOrder="1" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Rate%20My%20Burger%0APost%20New%20Burger%0ABurgers%20Near%20me%0ALogin%20with%20Facebook%0ARegister</text>
+      </controlProperties>
+    </control>
+    <control controlID="8" controlTypeID="com.balsamiq.mockups::Title" x="615" y="181" w="-1" h="-1" measuredW="217" measuredH="43" zOrder="4" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Burger%20King</text>
+      </controlProperties>
+    </control>
+    <control controlID="9" controlTypeID="com.balsamiq.mockups::Label" x="686" y="224" w="-1" h="-1" measuredW="74" measuredH="21" zOrder="5" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>of%20the%20month</text>
+      </controlProperties>
+    </control>
+    <control controlID="11" controlTypeID="com.balsamiq.mockups::VRule" x="892" y="202" w="-1" h="480" measuredW="10" measuredH="100" zOrder="6" locked="false" isInGroup="-1"/>
+    <control controlID="13" controlTypeID="com.balsamiq.mockups::Label" x="586" y="373" w="-1" h="-1" measuredW="99" measuredH="21" zOrder="7" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>The%20Cheesy%20God</text>
+      </controlProperties>
+    </control>
+    <control controlID="15" controlTypeID="com.balsamiq.mockups::Paragraph" x="702" y="260" w="175" h="162" measuredW="275" measuredH="80" zOrder="8" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>This%20burger%20is%20amazing.%20Best%20burger%20I%27ve%20ever%20had.%20It%20had%20cheese%20and%20tomatoes%20and%20onions%20and%20lettuce%20and%20BBQ%20sauce%2C%20did%20I%20mention%20cheese.%20Yes%20I%20did.%20Well%20imagine%20twice%20the%20cheese.%20It%20also%20had%20one%20of%20the%20best%20beef.%20Juicy%20and%20succulent%2C%20BBQed%20to%20perfection.%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="22" controlTypeID="__group__" x="578" y="444" w="296" h="238" measuredW="296" measuredH="238" zOrder="10" locked="false" isInGroup="-1">
+      <groupChildrenDescriptors>
+        <control controlID="0" controlTypeID="com.balsamiq.mockups::FieldSet" x="0" y="0" w="296" h="238" measuredW="200" measuredH="170" zOrder="0" locked="false" isInGroup="22">
+          <controlProperties>
+            <text>Where%20to%20find%20it</text>
+          </controlProperties>
+        </control>
+        <control controlID="1" controlTypeID="com.balsamiq.mockups::Label" x="15" y="15" w="-1" h="-1" measuredW="159" measuredH="21" zOrder="1" locked="false" isInGroup="22">
+          <controlProperties>
+            <text>The%20Garden%20Cafe%2C%20Glasgow</text>
+          </controlProperties>
+        </control>
+        <control controlID="2" controlTypeID="com.balsamiq.mockups::Map" x="8" y="43" w="281" h="188" measuredW="252" measuredH="222" zOrder="2" locked="false" isInGroup="22"/>
+      </groupChildrenDescriptors>
+    </control>
+    <control controlID="23" controlTypeID="__group__" x="750" y="417" w="127" h="22" measuredW="127" measuredH="22" zOrder="9" locked="false" isInGroup="-1">
+      <groupChildrenDescriptors>
+        <control controlID="0" controlTypeID="com.balsamiq.mockups::Webcam" x="100" y="0" w="27" h="22" measuredW="177" measuredH="146" zOrder="0" locked="false" isInGroup="23"/>
+        <control controlID="1" controlTypeID="com.balsamiq.mockups::Label" x="0" y="3" w="-1" h="-1" measuredW="100" measuredH="17" zOrder="1" locked="false" isInGroup="23">
+          <controlProperties>
+            <size>9</size>
+            <text>by%20john_the_burger_guy</text>
+          </controlProperties>
+        </control>
+      </groupChildrenDescriptors>
+    </control>
+    <control controlID="24" controlTypeID="com.balsamiq.mockups::Title" x="922" y="181" w="-1" h="-1" measuredW="297" measuredH="43" zOrder="11" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Recent%20Reviews</text>
+      </controlProperties>
+    </control>
+    <control controlID="27" controlTypeID="com.balsamiq.mockups::Image" x="907" y="245" w="115" h="115" measuredW="348" measuredH="348" zOrder="12" locked="false" isInGroup="-1">
+      <controlProperties>
+        <src>../../../Downloads/348s.jpg</src>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="28" controlTypeID="com.balsamiq.mockups::Paragraph" x="1037" y="245" w="197" h="115" measuredW="275" measuredH="80" zOrder="13" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>iHello</text>
+      </controlProperties>
+    </control>
+  </controls>
+</mockup>
