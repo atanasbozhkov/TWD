@@ -7,7 +7,12 @@ from django.contrib.auth.decorators import login_required
 
 def index(request):
     # return HttpResponse("Burger says hey hunger game!")
+    username = None
+    if request.user.is_authenticated():
+        username = request.user.username
+        context_dict = {'user':username}
     context_dict = {'boldmessage': "I am bold font from the context"}
+
     return render(request, 'burger/index.html', context_dict)
 
 @login_required

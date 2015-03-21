@@ -18,12 +18,25 @@
                 <li>
                     <a href="#">Burgers Near me</a>
                 </li>
-                <li>
-                    <a href="{% url 'login' %}">Login</a>
+
+                    {% if user %}
+                        <li>
+                        Logged in as {{ user }}
+                        </li>
+                        <li>
+                        <a href="#"> Logout </a>
+                        </li>
+                    {% else %}
+                        <li>
+                            <a href="{% url 'login' %}">Login</a>
+                        </li>
+                         <li>
+                            <a href="{% url 'register'%}">Register</a>
+                        </li>
+                    {% endif %}
+
                 </li>
-                <li>
-                    <a href="{% url 'register'%}">Register</a>
-                </li>
+
             </ul>
         </div>
         <!-- /#sidebar-wrapper -->
