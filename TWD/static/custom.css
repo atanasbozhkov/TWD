@@ -1,0 +1,13 @@
+.mega-search {
+    width:80%;
+}
+.left-col {
+    float:left;
+    width:25%;
+}
+
+.right-col{
+    width:35%;
+    float:left;
+    margin-left: 22%;
+}
