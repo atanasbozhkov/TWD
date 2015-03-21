@@ -13,14 +13,14 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Simple Sidebar - Start Bootstrap Template</title>
+    <title>Rate my burger</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="{% static "flatui/dist/css/flat-ui.css" %}" rel="stylesheet">
 
     <!-- Custom CSS -->
     <link href="{% static "sidebar.css" %}" rel="stylesheet">
-
+    <link href="{% static "custom.css" %}" rel="stylesheet">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -39,29 +39,20 @@
             <ul class="sidebar-nav">
                 <li class="sidebar-brand">
                     <a href="#">
-                        Start Bootstrap
+                        Rate My Burger
                     </a>
                 </li>
                 <li>
-                    <a href="#">Dashboard</a>
+                    <a href="#">Post New Burger</a>
                 </li>
                 <li>
-                    <a href="#">Shortcuts</a>
+                    <a href="#">Burgers Near me</a>
                 </li>
                 <li>
-                    <a href="#">Overview</a>
+                    <a href="#">Login with Facebook</a>
                 </li>
                 <li>
-                    <a href="#">Events</a>
-                </li>
-                <li>
-                    <a href="#">About</a>
-                </li>
-                <li>
-                    <a href="#">Services</a>
-                </li>
-                <li>
-                    <a href="#">Contact</a>
+                    <a href="#">Register</a>
                 </li>
             </ul>
         </div>
@@ -72,10 +63,19 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12">
-                        <h1>Simple Sidebar</h1>
-                        <p>This template has a responsive menu toggling system. The menu will appear collapsed on smaller screens, and will appear non-collapsed on larger screens. When toggled using the button below, the menu will appear/disappear. On small screens, the page content will be pushed off canvas.</p>
-                        <p>Make sure to keep all page content within the <code>#page-content-wrapper</code>.</p>
-                        <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a>
+                        <input class="form-control mega-search" id="navbarInput-01" type="search" placeholder="Search for burgers/pubs/restaurants">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="left-col">
+                        <h2> Burger King</h2>
+                        of the month
+
+                    </div>
+                    <div class="right-col">
+                        <h2> Recent Reviews</h2>
+                        this month
+
                     </div>
                 </div>
             </div>
