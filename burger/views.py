@@ -4,14 +4,17 @@ from burger.forms import CategoryForm, PageForm, UserForm, UserProfileForm
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth.decorators import login_required
+import logging
 
 def index(request):
     # return HttpResponse("Burger says hey hunger game!")
+    context_dict = {'boldmessage': "I am bold font from the context"}
     username = None
     if request.user.is_authenticated():
-        username = request.user.username
-        context_dict = {'user':username}
-    context_dict = {'boldmessage': "I am bold font from the context"}
+        if(request.user.username != ""):
+            username = request.user.username
+            context_dict = {'username':username}
+
 
     return render(request, 'burger/index.html', context_dict)
 
