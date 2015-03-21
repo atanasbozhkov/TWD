@@ -19,12 +19,12 @@
                     <a href="#">Burgers Near me</a>
                 </li>
 
-                    {% if user.is_authenticated %}
+                    {% if user %}
                         <li>
                         Logged in as {{ user }}
                         </li>
                         <li>
-                        <a href="/burger/logout"> Logout </a>
+                        <a href="#"> Logout </a>
                         </li>
                     {% else %}
                         <li>
