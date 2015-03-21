@@ -1,12 +1,18 @@
+{% extends 'burger/base.html' %}
+
+{% block title %}Register{% endblock %}
+
+{% block body_block %}
+
 <h1>Register with Burger</h1>
 
 {% if registered %}
 Burger says: <strong>thank you for registering!</strong>
-<a href="/burger/">Return to the homepage.</a><br />
+<a href="{% url 'index' %}">Return to the homepage.</a><br />
 {% else %}
 Burger says: <strong>register here!</strong><br />
 
-<form id="user_form" method="post" action="/burger/register/"
+<form id="user_form" method="post" action="{% url 'register' %}"
         enctype="multipart/form-data">
 
     {% csrf_token %}
@@ -21,3 +27,5 @@ Burger says: <strong>register here!</strong><br />
     <input type="submit" name="submit" value="Register" />
 </form>
 {% endif %}
+
+{% endblock %}

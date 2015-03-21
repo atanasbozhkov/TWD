@@ -1,3 +1,9 @@
+{% extends 'burger/base.html' %}
+
+{% block title %}{{category_name}}{% endblock %}
+
+{% block body_block %}
+
 <h1>{{ category_name }}</h1>
 {% if category %}
     {% if pages %}
@@ -9,7 +15,9 @@
     {% else %}
         <strong>No pages currently in category.</strong>
     {% endif %}
-    <a href="/burger/add_page/{{slug}}">Add a New Category</a><br />
+    <a href="{% url 'add_page' slug%}">Add a New Category</a><br />
 {% else %}
     The specified category {{ category_name }} does not exist!
 {% endif %}
+
+{% endblock %}
