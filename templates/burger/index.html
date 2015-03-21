@@ -1,9 +1,21 @@
-{% load staticfiles %} <!-- New line -->
+{% load staticfiles %}
 
-Burger says hey hunger game!!
+{% if user.is_authenticated %}
+<h1>Rango says... {{ user.username }}! May the odds be ever in your favor</h1>
+{% else %}
+<h1>Burger says "Hunger game!!"</h1>
+{% endif %}
+
 <br>
 {{boldmessage}}
 <br>
 <img src="{% static "images/rango-picture.png" %}" alt="Picture of Rango" />
 
-<a href="/burger/categoryList">View Category</a><br />
+<br>
+{% if user.is_authenticated %}
+<a href="/burger/logout/">Logout</a><br>
+{% else %}
+<a href="/burger/register/">Register Here</a><br>
+<a href="/burger/login/">Login</a><br>
+{% endif %}
+<a href="/burger/categoryList">View Category</a><br>
