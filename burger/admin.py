@@ -1,5 +1,5 @@
 from django.contrib import admin
-from burger.models import Category, Page, UserProfile, PointOfInterest, Restaurant
+from burger.models import Category, Page, UserProfile, PointOfInterest, Restaurant, BurgerCategories, Burgers
 
 class CategoryAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug':('name',)}
@@ -24,3 +24,5 @@ admin.site.register(Page)
 admin.site.register(UserProfile)
 admin.site.register(PointOfInterest, PointOfInterestAdmin)
 admin.site.register(Restaurant)
+admin.site.register(BurgerCategories)
+admin.site.register(Burgers)

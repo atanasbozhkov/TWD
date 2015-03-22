@@ -53,6 +53,22 @@ class PointOfInterest(models.Model):
     city = models.CharField(max_length=50)
     zipcode = models.CharField(max_length=10)
     position = GeopositionField(blank=True)
-
+    def __unicode__(self):
+        return self.name
     class Meta:
         verbose_name_plural = 'points of interest'
+
+class BurgerCategories(models.Model):
+    name = models.CharField(max_length=128)
+    def __unicode__(self):
+        return self.name
+
+
+class Burgers(models.Model):
+    name = models.CharField(max_length=128)
+    category = models.OneToOneField(BurgerCategories)
+    location = models.OneToOneField(PointOfInterest)
+    worst = models.BooleanField(default=False)
+    best = models.BooleanField(default=False)
+    def __unicode__(self):
+        return self.name
