@@ -1,5 +1,5 @@
 from django import forms
-from burger.models import Page, Category, UserProfile, Restaurant
+from burger.models import Page, Category, UserProfile, PointOfInterest, Restaurant
 from django.contrib.auth.models import User
 
 class CategoryForm(forms.ModelForm):
@@ -62,3 +62,7 @@ class PlaceForm(forms.ModelForm):
        widgets = {
            'name' : forms.TextInput(attrs={'class': 'form-control'})
        }
+class MapForm(forms.ModelForm):
+    class Meta:
+        model = PointOfInterest
+        fields = ('name', 'address', 'city', 'zipcode', 'position')

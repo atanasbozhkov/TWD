@@ -7,7 +7,6 @@ https://docs.djangoproject.com/en/1.7/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.7/ref/settings/
 """
-
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
@@ -37,6 +36,8 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'burger',
+    'registration',
+    'geoposition',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -100,4 +101,26 @@ STATICFILES_DIRS = (
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-LOGIN_URL = '/burger/login/'
+# LOGIN_URL = '/burger/login/'
+
+REGISTRATION_OPEN = True                # If True, users can register
+# ACCOUNT_ACTIVATION_DAYS = 2     # One-week activation window; you may, of course, use a different value.
+# REGISTRATION_AUTO_LOGIN = True  # If True, the user will be automatically logged in.
+LOGIN_REDIRECT_URL = '/burger/'  # The page you want users to arrive at after they successful log in
+LOGIN_URL = '/accounts/login/'
+
+EMAIL_HOST = 'localhost'
+EMAIL_PORT = 1025
+EMAIL_HOST_USER = ''
+EMAIL_HOST_PASSWORD = ''
+EMAIL_USE_TLS = False
+DEFAULT_FROM_EMAIL = 'testing@example.com'
+
+GEOPOSITION_MAP_OPTIONS = {
+    'minZoom': 3,
+    'maxZoom': 20,
+}
+
+GEOPOSITION_MARKER_OPTIONS = {
+    'cursor': 'move'
+}

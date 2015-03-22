@@ -1,4 +1,5 @@
 from django.conf.urls import patterns, url
+from django.conf import settings
 from burger import views
 
 urlpatterns = patterns('',
@@ -11,4 +12,11 @@ urlpatterns = patterns('',
     url(r'^register/$', views.register, name='register'),
     url(r'^login/$', views.user_login, name='login'),
     url(r'^logout/$', views.user_logout, name='logout'),
+    url(r'^map/$', views.map, name='map'),
+    url(r'^map_view/$', views.map_view, name='map_view'),
 )
+
+if settings.REGISTRATION_OPEN:
+    urlpatterns += patterns('', url(r'^register/$', views.register, name='register'))
+else:
+    urlpatterns += patterns('', url(r'^register/$', views.registerClosed, name='register'))
