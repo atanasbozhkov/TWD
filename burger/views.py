@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from burger.models import Category, Page
-from burger.forms import CategoryForm, PageForm, UserForm, UserProfileForm
+from burger.forms import CategoryForm, PageForm, UserForm, UserProfileForm, PlaceForm
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth.decorators import login_required
@@ -43,6 +43,22 @@ def category(request, category_name_slug):
 
     # Go render the response and return it to the client.
     return render(request, 'burger/category.html', context_dict)
+
+def add_place(request):
+    if request.method == 'POST':
+        form = PlaceForm(request.POST)
+
+        if form.is_valid():
+            form.save(commit=True)
+            return index(request)
+
+        else:
+            print form.errors
+    else:
+        form = PlaceForm()
+
+    return render(request, 'burger/add_place.html', {'form':form})
+
 
 def add_category(request):
     if request.method == 'POST':

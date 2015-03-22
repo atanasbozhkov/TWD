@@ -11,3 +11,7 @@
     float:left;
     margin-left: 22%;
 }
+.form-control{
+    height: auto;
+    padding: 0px;
+}

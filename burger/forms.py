@@ -1,5 +1,5 @@
 from django import forms
-from burger.models import Page, Category, UserProfile
+from burger.models import Page, Category, UserProfile, Restaurant
 from django.contrib.auth.models import User
 
 class CategoryForm(forms.ModelForm):
@@ -55,3 +55,10 @@ class UserProfileForm(forms.ModelForm):
     class Meta:
         model = UserProfile
         fields = ('website', 'picture')
+
+class PlaceForm(forms.ModelForm):
+   class Meta:
+       model = Restaurant
+       widgets = {
+           'name' : forms.TextInput(attrs={'class': 'form-control'})
+       }

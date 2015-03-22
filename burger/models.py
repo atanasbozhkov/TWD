@@ -16,9 +16,10 @@ class Category(models.Model):
         return self.name
 
 class Restaurant(models.Model):
-    name = models.CharField(max_length=128, unique=False)
-    location = models.CharField(max_length=512, unique=False)
-    desc = models.CharField(max_length=128, unique=False)
+    name = models.CharField(max_length=128, unique=False, help_text="Place Name")
+    desc = models.CharField(max_length=128, unique=False, help_text="Description")
+    lat = models.CharField(max_length=10, unique=False, help_text="Latitude")
+    lon = models.CharField(max_length=10, unique=False, help_text="Longitude")
     categoryID = models.OneToOneField(Category)
 
     def __unicode__(self):  #For Python 2, use __str__ on Python 3
