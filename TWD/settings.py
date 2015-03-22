@@ -104,7 +104,14 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # LOGIN_URL = '/burger/login/'
 
 REGISTRATION_OPEN = True                # If True, users can register
-ACCOUNT_ACTIVATION_DAYS = 7     # One-week activation window; you may, of course, use a different value.
+ACCOUNT_ACTIVATION_DAYS = 2     # One-week activation window; you may, of course, use a different value.
 REGISTRATION_AUTO_LOGIN = True  # If True, the user will be automatically logged in.
 LOGIN_REDIRECT_URL = '/burger/'  # The page you want users to arrive at after they successful log in
 LOGIN_URL = '/accounts/login/'
+
+EMAIL_HOST = 'localhost'
+EMAIL_PORT = 1025
+EMAIL_HOST_USER = ''
+EMAIL_HOST_PASSWORD = ''
+EMAIL_USE_TLS = False
+DEFAULT_FROM_EMAIL = 'testing@example.com'

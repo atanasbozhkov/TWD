@@ -4,67 +4,27 @@
 {% load staticfiles %} <!-- New line -->
 
 {% block body_block %}
-    <div id="wrapper">
-
-        <!-- Sidebar -->
-        <div id="sidebar-wrapper">
-            <ul class="sidebar-nav">
-                <li class="sidebar-brand">
-                    <a href="{% url 'index' %}">Rate My Burger</a>
-                </li>
-                {% if user.is_authenticated %}
-                <li>
-                    <a href="#">Post New Burger</a>
-                </li>
-                <li>
-                    <a href="#">Burgers Near me</a>
-                </li>
-                <li>
-                    <a href="{% url 'auth_password_change' %}">Change Password</a>
-                </li>
-                <li>
-                    <a href="{% url 'auth_logout' %}?next={% url 'index' %}">Logout</a>
-                </li>
-                {% else %}
-                <li>
-                    <a href="{% url 'auth_login' %}">Login</a>
-                </li>
-                <li>
-                    <a href="{% url 'registration_register'%}">Register</a>
-                </li>
-                {% endif %}
-            </ul>
-        </div>
-        <!-- /#sidebar-wrapper -->
-
-        <!-- Page Content -->
-        <div id="page-content-wrapper">
-            {% if user.is_authenticated %}
-                Burger says... {{ user.username }}!<br>
-                May the odds be ever in your favor
-            {% endif %}
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <input class="form-control mega-search" id="navbarInput-01" type="search" placeholder="Search for burgers/pubs/restaurants">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="left-col">
-                        <h2> Burger King</h2>
-                        of the month
-
-                    </div>
-                    <div class="right-col">
-                        <h2> Recent Reviews</h2>
-                        this month
-
-                    </div>
-                </div>
+    {% if user.is_authenticated %}
+        Burger says... {{ user.username }}!<br>
+        May the odds be ever in your favor
+    {% endif %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+                <input class="form-control mega-search" id="navbarInput-01" type="search" placeholder="Search for burgers/pubs/restaurants">
             </div>
         </div>
-        <!-- /#page-content-wrapper -->
+        <div class="row">
+            <div class="left-col">
+                <h2> Burger King</h2>
+                of the month
 
+            </div>
+            <div class="right-col">
+                <h2> Recent Reviews</h2>
+                this month
+
+            </div>
+        </div>
     </div>
-    <!-- /#wrapper -->
 {% endblock %}
