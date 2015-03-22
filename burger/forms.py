@@ -1,5 +1,5 @@
 from django import forms
-from burger.models import Page, Category, UserProfile
+from burger.models import Page, Category, UserProfile, PointOfInterest
 from django.contrib.auth.models import User
 
 class CategoryForm(forms.ModelForm):
@@ -56,7 +56,7 @@ class UserProfileForm(forms.ModelForm):
         model = UserProfile
         fields = ('website', 'picture')
 
-class DocumentForm(forms.Form):
-    docfile = forms.FileField(
-        label='Select a file'
-    )
+class MapForm(forms.ModelForm):
+    class Meta:
+        model = PointOfInterest
+        fields = ('name', 'address', 'city', 'zipcode', 'position')

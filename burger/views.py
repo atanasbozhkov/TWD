@@ -1,10 +1,7 @@
-from django.shortcuts import render, render_to_response
-from burger.models import Category, Page, Document
-from burger.forms import CategoryForm, PageForm, UserForm, UserProfileForm, DocumentForm
+from django.shortcuts import render
+from burger.models import Category, Page, PointOfInterest
+from burger.forms import CategoryForm, PageForm, UserForm, UserProfileForm, MapForm
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponseRedirect
-from django.core.urlresolvers import reverse
-from django.template import RequestContext
 
 def index(request):
     # return HttpResponse("Burger says hey hunger game!")
@@ -154,28 +151,19 @@ def register(request):
 def registerClosed(request):
     return render(request, 'registration/registration_closed.html')
 
-@login_required
-def upload(request):
-    # Handle file upload
+def map(request):
     if request.method == 'POST':
-        form = DocumentForm(request.POST, request.FILES)
+        form = MapForm(request.POST)
         if form.is_valid():
-            newdoc = Document(docfile = request.FILES['docfile'])
-            newdoc.save()
-
-            # Redirect to the document list after POST
-            return HttpResponseRedirect(reverse('burger.views.upload'))
+            form.save(commit=True)
+            return index(request)
+        else:
+            print form.errors
     else:
-        form = DocumentForm() # A empty, unbound form
+        form = MapForm()
 
-    # Load documents for the list page
-    documents = Document.objects.all()
+    return render(request, 'burger/map.html', {'form': form})
 
-    # Render list page with the documents and the form
-    return render_to_response(
-        'burger/upload.html',
-        {'documents': documents, 'form': form},
-        context_instance=RequestContext(request)
-    )
-
-
+def map_view(request):
+    pois = PointOfInterest.objects.all()
+    return render(request, 'burger/map_view.html', {'pois': pois})
