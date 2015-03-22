@@ -9,8 +9,7 @@
         <!-- Page Content -->
         <div id="page-content-wrapper">
             {% if user.is_authenticated %}
-                Burger says... {{ user.username }}!<br>
-                May the odds be ever in your favor
+                Hello  {{ user.username }} oh might Burger eater!<br>
             {% endif %}
             <div class="container-fluid">
                 <div class="row">
@@ -22,11 +21,14 @@
                     <div class="left-col">
                         <h2> Burger King</h2>
                         of the month
-            </div>
-            <div class="right-col">
-                <h2> Recent Reviews</h2>
-                this month
+                    </div>
 
+                    <div class="right-col">
+                        <h2> Recent Reviews</h2>
+                        this month
+
+                    </div>
+                </div>
             </div>
         </div>
     </div>

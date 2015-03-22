@@ -19,8 +19,8 @@ class Category(models.Model):
 class Restaurant(models.Model):
     name = models.CharField(max_length=128, unique=False, help_text="Place Name")
     desc = models.CharField(max_length=128, unique=False, help_text="Description")
-    lat = models.CharField(max_length=10, unique=False, help_text="Latitude")
-    lon = models.CharField(max_length=10, unique=False, help_text="Longitude")
+    lat = models.CharField(max_length=10, unique=False, help_text="Latitude", default="")
+    lon = models.CharField(max_length=10, unique=False, help_text="Longitude", default="")
     categoryID = models.OneToOneField(Category)
 
     def __unicode__(self):  #For Python 2, use __str__ on Python 3

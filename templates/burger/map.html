@@ -10,4 +10,15 @@
         {{ form.as_p }}
         <input type="submit" name="submit" value="Create Point" />
     </form>
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            var select = document.getElementsByClassName("geoposition");
+            console.log(select)
+{#            $("#id_position_0").parent().parent().parent().parent()[0].style.display = 'none'#}
+            $("#id_position_0").closest('table').hide();
+
+        });
+
+    </script>
 {% endblock %}

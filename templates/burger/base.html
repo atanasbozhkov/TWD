@@ -44,11 +44,11 @@
                     <a href="#">Burgers Near me</a>
                 </li>
                 <li>
-                    <a href="{% url 'logout' %}">Logout</a>
+                    <a href="{% url 'auth_logout' %}">Logout</a>
                 </li>
                 {% else %}
                 <li>
-                    <a href="{% url 'login' %}">Login</a>
+                    <a href="{% url 'auth_login' %}">Login</a>
                 </li>
                 <li>
                     <a href="{% url 'register'%}">Register</a>
@@ -57,23 +57,7 @@
             </ul>
         </div>
         <!-- /#sidebar-wrapper -->
-        <!-- <div>
-            {% if user.is_authenticated %}
-            <h1>Burger says... {{ user.username }}! May the odds be ever in your favor</h1>
-            <a href="{% url 'logout' %}">Logout</a><br>
-            {% else %}
-            <h1>Burger says "Hunger game!!"</h1>
-            <a href="{% url 'register' %}">Register Here</a><br>
-            <a href="{% url 'login' %}">Login</a><br>
-            {% endif %}
-        </div>
 
-        <hr> -->
-            <div id="page-content-wrapper">
-              <div>
-                  {% block body_block %}{% endblock %}
-             </div>
-            </div>
         <div id="wrapper">
 
             <!-- Sidebar -->
