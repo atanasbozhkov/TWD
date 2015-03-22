@@ -171,11 +171,15 @@ def map_view(request):
 
 def add_restaurant(request):
     if request.method == 'POST':
-        restaurant_form = PlaceForm(request.POST)
-        location_form = MapForm(request.POST)
+        restaurant_form = PlaceForm(request.POST, request.FILES)
+        location_form = MapForm(data=request.POST)
 
         if restaurant_form.is_valid() and location_form.is_valid():
-            restaurant = restaurant_form.save(commit=True)
+            restaurant = restaurant_form.save(commit=False)
+            if 'picture' in request.FILES:
+                restaurant.picture = request.FILES['picture']
+            restaurant.save()
+
             location = location_form.save(commit=False)
             location.name = restaurant.name
             location.restaurant = restaurant

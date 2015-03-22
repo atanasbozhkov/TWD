@@ -59,11 +59,11 @@ class UserProfileForm(forms.ModelForm):
 class PlaceForm(forms.ModelForm):
    class Meta:
        model = Restaurant
+       fields = ('name', 'desc', 'picture')
        widgets = {
            'name' : forms.TextInput(attrs={'class': 'form-control'})
        }
 class MapForm(forms.ModelForm):
     class Meta:
         model = PointOfInterest
-
         fields = ('address', 'city', 'zipcode', 'position')

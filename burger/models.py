@@ -19,6 +19,7 @@ class Category(models.Model):
 class Restaurant(models.Model):
     name = models.CharField(max_length=128, unique=True, help_text="Place Name", default="")
     desc = models.CharField(max_length=128, unique=False, help_text="Description")
+    picture = models.ImageField(upload_to='restaurant_images', blank=True)
     # lat = models.CharField(max_length=10, unique=False, help_text="Latitude", default="")
     # lon = models.CharField(max_length=10, unique=False, help_text="Longitude", default="")
     # categoryID = models.OneToOneField(Category)
