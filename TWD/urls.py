@@ -16,8 +16,7 @@ urlpatterns = patterns('',
     url(r'^$', views.index, name='index'),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^burger/', include('burger.urls')),
-    #Add in this url pattern to override the default pattern in accounts.
-    url(r'^accounts/register/$', MyRegistrationView.as_view(), name='registration_register'),
+    # no activation email would be sent
     (r'^accounts/', include('registration.backends.simple.urls')),
 )
 

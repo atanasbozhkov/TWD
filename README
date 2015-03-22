@@ -1,3 +1,6 @@
 ** Beggining for the Internet Technology Coursework **
 ratemyburger2015@gmail.com
 itechcowboy
+
+Local mail server:
+python -m smtpd -n -c DebuggingServer localhost:1025
