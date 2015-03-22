@@ -27,37 +27,6 @@
     </head>
 
     <body>
-            <!-- Sidebar -->
-        <div id="sidebar-wrapper">
-            <ul class="sidebar-nav">
-                <li class="sidebar-brand">
-                    <a href="{% url 'index' %}">Rate My Burger</a>
-                </li>
-                {% if user.is_authenticated %}
-                <li>
-                    <a href="#">Post New Burger</a>
-                </li>
-                <li>
-                    <a href="/burger/add_place">Add a new Restaurant</a>
-                </li>
-                <li>
-                    <a href="#">Burgers Near me</a>
-                </li>
-                <li>
-                    <a href="{% url 'auth_logout' %}">Logout</a>
-                </li>
-                {% else %}
-                <li>
-                    <a href="{% url 'auth_login' %}">Login</a>
-                </li>
-                <li>
-                    <a href="{% url 'register'%}">Register</a>
-                </li>
-                {% endif %}
-            </ul>
-        </div>
-        <!-- /#sidebar-wrapper -->
-
         <div id="wrapper">
 
             <!-- Sidebar -->
@@ -69,6 +38,9 @@
                     {% if user.is_authenticated %}
                     <li>
                         <a href="#">Post New Burger</a>
+                    </li>
+                    <li>
+                        <a href="/burger/add_place">Add a new Restaurant</a>
                     </li>
                     <li>
                         <a href="#">Burgers Near me</a>

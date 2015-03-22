@@ -1,8 +1,6 @@
 from django.shortcuts import render
 from burger.models import Category, Page, PointOfInterest
 from burger.forms import CategoryForm, PageForm, UserForm, UserProfileForm, PlaceForm, MapForm
-from django.contrib.auth import authenticate, login, logout
-from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth.decorators import login_required
 
 def index(request):
