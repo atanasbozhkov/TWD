@@ -66,4 +66,4 @@ class MapForm(forms.ModelForm):
     class Meta:
         model = PointOfInterest
 
-        fields = ('name', 'address', 'city', 'zipcode', 'position')
+        fields = ('address', 'city', 'zipcode', 'position')

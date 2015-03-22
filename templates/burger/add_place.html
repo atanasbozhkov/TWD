@@ -7,19 +7,13 @@
 
     <div class="span12 pagination-centered" style="text-align:center;">
      <h2> Add new place</h2>
+     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
      <form id="category_form" method="post" action="/burger/add_place/">
 
             {% csrf_token %}
-            {% for hidden in form.hidden_fields %}
-                {{ hidden }}
-            {% endfor %}
-
-            {% for field in form.visible_fields %}
-                {{ field.errors }}
-                {{ field.help_text }}
-                {{ field }}
-                <br/>
-            {% endfor %}
+            {{ restaurant_form.as_p }}
+            {{ location_form.media }}
+            {{ location_form.as_p }}
 
             <input type="submit" name="submit" value="Add Place" />
         </form>

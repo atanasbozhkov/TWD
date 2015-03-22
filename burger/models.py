@@ -17,11 +17,11 @@ class Category(models.Model):
         return self.name
 
 class Restaurant(models.Model):
-    name = models.CharField(max_length=128, unique=False, help_text="Place Name")
+    name = models.CharField(max_length=128, unique=True, help_text="Place Name", default="")
     desc = models.CharField(max_length=128, unique=False, help_text="Description")
-    lat = models.CharField(max_length=10, unique=False, help_text="Latitude", default="")
-    lon = models.CharField(max_length=10, unique=False, help_text="Longitude", default="")
-    categoryID = models.OneToOneField(Category)
+    # lat = models.CharField(max_length=10, unique=False, help_text="Latitude", default="")
+    # lon = models.CharField(max_length=10, unique=False, help_text="Longitude", default="")
+    # categoryID = models.OneToOneField(Category)
 
     def __unicode__(self):  #For Python 2, use __str__ on Python 3
         return (self.name + " " + self.desc)
@@ -48,11 +48,13 @@ class UserProfile(models.Model):
         return self.user.username
 
 class PointOfInterest(models.Model):
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100, default="")
     address = models.CharField(max_length=255)
     city = models.CharField(max_length=50)
     zipcode = models.CharField(max_length=10)
     position = GeopositionField(blank=True)
+    restaurant = models.OneToOneField(Restaurant, default="")
+
     def __unicode__(self):
         return self.name
     class Meta:

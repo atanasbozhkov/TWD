@@ -42,22 +42,6 @@ def category(request, category_name_slug):
     # Go render the response and return it to the client.
     return render(request, 'burger/category.html', context_dict)
 
-def add_place(request):
-    if request.method == 'POST':
-        form = PlaceForm(request.POST)
-
-        if form.is_valid():
-            form.save(commit=True)
-            return index(request)
-
-        else:
-            print form.errors
-    else:
-        form = PlaceForm()
-
-    return render(request, 'burger/add_place.html', {'form':form})
-
-
 def add_category(request):
     if request.method == 'POST':
         form = CategoryForm(request.POST)
@@ -183,3 +167,26 @@ def map(request):
 def map_view(request):
     pois = PointOfInterest.objects.all()
     return render(request, 'burger/map_view.html', {'pois': pois})
+
+
+def add_restaurant(request):
+    if request.method == 'POST':
+        restaurant_form = PlaceForm(request.POST)
+        location_form = MapForm(request.POST)
+
+        if restaurant_form.is_valid() and location_form.is_valid():
+            restaurant = restaurant_form.save(commit=True)
+            location = location_form.save(commit=False)
+            location.name = restaurant.name
+            location.restaurant = restaurant
+            location.save()
+
+            return index(request)
+
+        else:
+            print restaurant_form.errors, location_form.errors
+    else:
+        restaurant_form = PlaceForm()
+        location_form = MapForm()
+
+    return render(request, 'burger/add_place.html', {'restaurant_form':restaurant_form, "location_form": location_form})
