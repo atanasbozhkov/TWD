@@ -8,59 +8,60 @@
 <div class="{{burger.slug}}_image burger_images galleria"></div>
 {% if burger %}
     <div id="review">
-    {% if reviews %}
-    <ul>
-        {% for comment in reviews %}
-            {{comment.text}}<br>
-            {{comment.user.username}}<br>
-            {% if comment.user.picture %}
-                <img src="{{ MEDIA_URL }}{{comment.user.picture}}"/>
-            {% endif %}
-            {{comment.date}}<br>
-        {% endfor %}
-    </ul>
-    {% else %}
-       <center> <strong>No review currently in {{burger.name}}.</strong></center><br>
-    {% endif %}
+        {% if reviews %}
+        <ul>
+            {% for comment in reviews %}
+                {{comment.text}}<br>
+                {{comment.user.username}}<br>
+                {% if comment.user.picture %}
+                    <img src="{{ MEDIA_URL }}{{comment.user.picture}}"/>
+                {% endif %}
+                {{comment.date}}<br>
+            {% endfor %}
+        </ul>
+        {% else %}
+           <center> <strong>No review currently in {{burger.name}}.</strong></center><br>
+        {% endif %}
     </div>
+
     {% if user.is_authenticated %}
-    {# <a href="{% url 'add_burger_review' slug%}">Add a New Review</a><br /> #}
-    <center><form id="review_form" method="post" class="form-group" action="{% url 'burger_page' slug%}">
+        <center><form id="review_form" method="post" class="form-group" action="{% url 'burger_page' slug%}">
 
-        {% csrf_token %}
-        {% for hidden in form.hidden_fields %}
-            {{ hidden }}
-        {% endfor %}
+            {% csrf_token %}
+            {% for hidden in form.hidden_fields %}
+                {{ hidden }}
+            {% endfor %}
 
-        {% for field in form.visible_fields %}
-            {{ field.errors }}
-            {{ field.help_text }} <br/>
-            {{ field }}
-            <br>
-            {{picture_form}}
-        {% endfor %}
+            {% for field in form.visible_fields %}
+                {{ field.errors }}
+                {{ field.help_text }} <br/>
+                {{ field }}
+                <br>
+                {{picture_form}}
+            {% endfor %}
 
-       <input type="submit" name="submit" class="btn btn-primary btn-lg btn-block" value="Submit Review" /></center>
-    </form>
+           <input type="submit" name="submit" class="btn btn-primary btn-lg btn-block" value="Submit Review" /></center>
+        </form>
 
-    <script type="text/javascript">
-        var form = $('#review_form');
-        ajaxForm(
-            form,
-            function(json) {
-                $('#id_text').val('');
-                console.log(json.result);
-                if (json.result === 'success') {
-                    $('#review').html("");
-                    $('#review').append(json.reviews);
+        <script type="text/javascript">
+            var form = $('#review_form');
+            ajaxForm(
+                form,
+                function(json) {
+                    $('#id_text').val('');
+                    console.log(json.result);
+                    if (json.result === 'success') {
+                        $('#review').html("");
+                        $('#review').append(json.reviews);
+                    }
+                },
+                function(xhr,errmsg,err) {
+                    console.log(xhr.status + ": " + xhr.responseText);
                 }
-            },
-            function(xhr,errmsg,err) {
-                console.log(xhr.status + ": " + xhr.responseText);
-            }
-        );
-    </script>
+            );
+        </script>
     {% endif%}
+
 <script type="text/javascript">
     getImages(
         "{{burger.slug}}",
