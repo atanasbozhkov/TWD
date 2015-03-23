@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import login_required
 import pygeoip, json
 from django.http import HttpResponse
 from django.template.loader import render_to_string
+from django.core import serializers
 
 def index(request):
     # return HttpResponse("Burger says hey hunger game!")
@@ -90,7 +91,6 @@ def add_burger(request):
     if request.method == 'POST':
         burger_form = BurgerForm(request.POST, request.FILES)
 
-
         if burger_form.is_valid():
             burger= burger_form.save(commit=False)
             if 'picture' in request.FILES:
@@ -103,9 +103,9 @@ def add_burger(request):
             print burger_form.errors
     else:
         burger_form = BurgerForm()
+        data = serializers.serialize("json", PointOfInterest.objects.all())
 
-
-    return render(request, 'burger/add_burger.html', {'form':burger_form})
+    return render(request, 'burger/add_burger.html', {'form':burger_form, 'data':data})
 
 @login_required
 def add_restaurant(request):
