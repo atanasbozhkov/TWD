@@ -69,8 +69,8 @@ class BurgerCategories(models.Model):
 
 class Burgers(models.Model):
     name = models.CharField(max_length=128, help_text="Burger Name")
-    category = models.OneToOneField(BurgerCategories, null=True, help_text="Category")
-    location = models.OneToOneField(PointOfInterest, null=True, help_text="Location")
+    category = models.ForeignKey(BurgerCategories, null=True, help_text="Category")
+    location = models.ForeignKey(PointOfInterest, null=True, help_text="Location")
     worst = models.BooleanField(default=False)
     best = models.BooleanField(default=False)
     def __unicode__(self):
