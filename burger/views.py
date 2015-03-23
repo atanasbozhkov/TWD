@@ -111,7 +111,7 @@ def add_burger(request):
                 burger.picture = request.FILES['picture']
             burger.save()
 
-            return index(request)
+            return browse_burger(request)
 
         else:
             print burger_form.errors
