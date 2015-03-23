@@ -3,19 +3,6 @@ from django.template.defaultfilters import slugify
 from django.contrib.auth.models import User
 from geoposition.fields import GeopositionField
 
-class Category(models.Model):
-    name = models.CharField(max_length=128, unique=True)
-    likes = models.IntegerField(default=0)
-    slug = models.SlugField(unique=True, default='')
-    views = models.IntegerField(default=0)
-
-    def save(self, *args, **kwargs):
-        self.slug = slugify(self.name)
-        super(Category, self).save(*args, **kwargs)
-
-    def __unicode__(self):  #For Python 2, use __str__ on Python 3
-        return self.name
-
 class Restaurant(models.Model):
     name = models.CharField(max_length=128, unique=False, default="")
     desc = models.CharField(max_length=128, unique=False)
@@ -26,15 +13,6 @@ class Restaurant(models.Model):
 
     def __unicode__(self):  #For Python 2, use __str__ on Python 3
         return (self.name + " " + self.desc)
-
-class Page(models.Model):
-    category = models.ForeignKey(Category)
-    title = models.CharField(max_length=128)
-    url = models.URLField()
-    views = models.IntegerField(default=0)
-
-    def __unicode__(self):      #For Python 2, use __str__ on Python 3
-        return self.title
 
 class UserProfile(models.Model):
     # This line is required. Links UserProfile to a User model instance.

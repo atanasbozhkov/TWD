@@ -1,7 +1,7 @@
 from django.contrib import admin
-from burger.models import Category, Page, UserProfile, PointOfInterest, Restaurant, BurgerCategories, Burgers, Comments
+from burger.models import UserProfile, PointOfInterest, Restaurant, BurgerCategories, Burgers, Comments
 
-class CategoryAdmin(admin.ModelAdmin):
+class SlugAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug':('name',)}
 
 class PointOfInterestAdmin(admin.ModelAdmin):
@@ -19,11 +19,9 @@ class PointOfInterestAdmin(admin.ModelAdmin):
             }
     position_map.allow_tags = True
 
-admin.site.register(Category, CategoryAdmin)
-admin.site.register(Page)
 admin.site.register(UserProfile)
 admin.site.register(PointOfInterest, PointOfInterestAdmin)
 admin.site.register(Restaurant)
-admin.site.register(BurgerCategories)
-admin.site.register(Burgers)
+admin.site.register(BurgerCategories, SlugAdmin)
+admin.site.register(Burgers, SlugAdmin)
 admin.site.register(Comments)

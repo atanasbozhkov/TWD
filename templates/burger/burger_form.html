@@ -1,1 +1,12 @@
 {{form.as_p}}
+{% if reviews %}
+<ul>
+    {% for comment in reviews %}
+        {{comment.text}}<br>
+        {{comment.user.username}}<br>
+        {{comment.date}}<br>
+    {% endfor %}
+</ul>
+{% else %}
+    <strong>No review currently in {{burger.name}}.</strong><br>
+{% endif %}
