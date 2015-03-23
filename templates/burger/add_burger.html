@@ -27,6 +27,11 @@
     </center>
     </div>
     <div id="results"></div>
+
+    <script type="text/javascript">
+        $('#id_location').after("<br><span class='redirect_link'><p>cannot find the restaurant location?</p><a href='{% url 'add_place' %}' >Add It Now!</a></span>")
+    </script>
+
     <center>
     {% if user.is_superuser %}
     <form id='category_add' action="{% url 'add_burger_category' %}">
