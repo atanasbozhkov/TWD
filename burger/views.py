@@ -183,41 +183,32 @@ def burger_page(request, burger_slug):
     context_dict = {}
     try:
         burger = Burgers.objects.get(slug=burger_slug)
-        context_dict['burger_name'] = burger.name
-
         reviews = Comments.objects.filter(target=burger)
 
-        context_dict['reviews'] = reviews
-        context_dict['burger'] = burger
-        context_dict['slug'] = burger_slug
+        if request.method == 'POST':
+            form = CommentForm(request.POST)
+            if form.is_valid():
+                if burger:
+                    comment = form.save(commit=False)
+                    comment.target = burger
+                    comment.user = request.user
+                    comment.save()
+
+                    response_data = {}
+                    response_data['result'] = "success"
+                    response_data['reviews'] = render_to_string('burger/burger_form.html', {'reviews': Comments.objects.filter(target=burger)})
+            else:
+                response_data['result'] = 'form invalid'
+            return HttpResponse(
+                json.dumps(response_data),
+                content_type="application/json"
+            )
+        else:
+            form = CommentForm()
+
+        context_dict = {'form':form, 'burger': burger, 'slug': burger_slug, "reviews": reviews}
+
     except Burgers.DoesNotExist:
         pass
 
     return render(request, 'burger/burger.html', context_dict)
-
-@login_required
-def add_burger_review(request, burger_slug):
-    try:
-        burger = Burgers.objects.get(slug=burger_slug)
-    except Burgers.DoesNotExist:
-        burger = None
-
-    if request.method == 'POST':
-        form = CommentForm(request.POST)
-        if form.is_valid():
-            if burger:
-                comment = form.save(commit=False)
-                comment.target = burger
-                comment.user = request.user
-                comment.save()
-                # probably better to use a redirect here.
-                return burger_page(request, burger_slug)
-        else:
-            print form.errors
-    else:
-        form = CommentForm()
-
-    context_dict = {'form':form, 'burger': burger, 'slug': burger_slug}
-
-    return render(request, 'burger/add_review.html', context_dict)
-

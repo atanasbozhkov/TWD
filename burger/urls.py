@@ -12,7 +12,6 @@ urlpatterns = patterns('',
     url(r'^add_burger_category/$', views.add_burger_category, name='add_burger_category'),
     url(r'^burgersurfing/$', views.browse_burger, name='browse_burger'),
     url(r'^(?P<burger_slug>[\w\-]+)/$', views.burger_page, name='burger_page'),
-    url(r'^add_review/(?P<burger_slug>[\w\-]+)/$', views.add_burger_review, name='add_burger_review'),
 )
 
 if settings.REGISTRATION_OPEN:
