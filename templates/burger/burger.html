@@ -62,20 +62,39 @@
         </script>
     {% endif%}
 
-<script type="text/javascript">
-    getImages(
-        "{{burger.slug}}",
-        function(json) {
-            if (json.urls.length > 0) {
-                for (var idx in json.urls) {
-                    $("."+json.slug + "_image").append("<img src='"+json.urls[idx]+"'>");
-                }
-                Galleria.loadTheme("{% static 'galleria.classic.min.js' %}");
-                Galleria.run('.burger_images');
-            }
+    <div id="map-canvas"></div>
+    <script>
+        function initialize() {
+            var mapOptions = {
+                zoom: 13,
+                center: new google.maps.LatLng(
+                    {{burger.location.position.latitude}},
+                    {{burger.location.position.longitude}}
+                )
+            };
+            var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+            var marker = new google.maps.Marker({
+                position: mapOptions.center,
+                map: map
+            });
         }
-    );
-</script>
+        google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <script type="text/javascript">
+        getImages(
+            "{{burger.slug}}",
+            function(json) {
+                if (json.urls.length > 0) {
+                    for (var idx in json.urls) {
+                        $("."+json.slug + "_image").append("<img src='"+json.urls[idx]+"'>");
+                    }
+                    Galleria.loadTheme("{% static 'galleria.classic.min.js' %}");
+                    Galleria.run('.burger_images');
+                }
+            }
+        );
+    </script>
 {% else %}
     The specified burger {{ burger.name }} does not exist!
 {% endif %}
