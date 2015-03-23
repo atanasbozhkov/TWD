@@ -1,12 +1,14 @@
 from django.shortcuts import render
-from burger.models import Category, Page, PointOfInterest, Restaurant
+from burger.models import Category, Page, PointOfInterest, Restaurant, Burgers
 from burger.forms import CategoryForm, PageForm, UserForm, UserProfileForm, PlaceForm, MapForm, BurgerForm
 from django.contrib.auth.decorators import login_required
 import pygeoip
 
 def index(request):
     # return HttpResponse("Burger says hey hunger game!")
-    context_dict = {'boldmessage': "I am bold font from the context"}
+    best = Burgers.objects.all().filter(best=True)
+    worst = Burgers.objects.all().filter(worst=True)
+    context_dict = {'boldmessage': "I am bold font from the context", 'best': best[0], 'worst': worst[0]}
     return render(request, 'burger/index.html', context_dict)
 
 @login_required
