@@ -21,18 +21,23 @@
                     <div class="left-col">
                         <h2> Burger King</h2>
                         of the month <br>
+                        {% if best %}
                         <h4>{{ best.name }}</h4> <br/>
                         Available at: <br/>
                         {{ best.location }}
+
+                        {% endif %}
+
                     </div>
 
                     <div class="right-col">
                         <h2> Recent Reviews</h2>
                         this month <br/>
+                        {% if worst %}
                         <h4> {{ worst.name }}</h4> <br/>
                         Available at: <br/>
                         {{ worst.location }}
-
+                        {% endif %}
                     </div>
                 </div>
             </div>

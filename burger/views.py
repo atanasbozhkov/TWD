@@ -8,7 +8,11 @@ def index(request):
     # return HttpResponse("Burger says hey hunger game!")
     best = Burgers.objects.all().filter(best=True)
     worst = Burgers.objects.all().filter(worst=True)
-    context_dict = {'boldmessage': "I am bold font from the context", 'best': best[0], 'worst': worst[0]}
+    if(best):
+        if(worst):
+             context_dict = {'boldmessage': "I am bold font from the context", 'best': best[0], 'worst': worst[0]}
+    else:
+         context_dict = {'boldmessage': "I am bold font from the context"}
     return render(request, 'burger/index.html', context_dict)
 
 @login_required
