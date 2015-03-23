@@ -41,6 +41,11 @@ class BurgerCategoryForm(forms.ModelForm):
     class Meta:
         model = BurgerCategories
         fields = ('name',)
+        widgets = {
+           'name' : forms.TextInput(attrs={'class': 'form-control'}),
+           'category' : forms.TextInput(attrs={'class': 'form-control'}),
+           'location' : forms.TextInput(attrs={'class': 'form-control'})
+        }
 
 class CommentForm(forms.ModelForm):
     class Meta:
