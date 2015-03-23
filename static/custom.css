@@ -47,6 +47,29 @@
     margin-top: 15px;
 }
 
+.burger_images {
+    height: 300px;
+    width: 200px;
+    position: relative;
+    padding: 20px;
+}
+
 .burger_images img{
     width: 200px;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+}
+
+.burger_item_container {
+    display: inline-block;
+}
+
+.burger_item {
+    float: left;
+}
+
+.galleria {
+    width: auto;
 }

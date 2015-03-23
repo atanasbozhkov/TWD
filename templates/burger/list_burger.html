@@ -5,22 +5,22 @@
 {% block body_block %}
 
 {% if burgers %}
-    <ul style="list-style-type: none;">
-        {% for burger in burgers %}
-        <li>
-            <a href="{% url 'burger_page'  burger.slug %}">
-                <div class="{{burger.slug}}_image burger_images"></div>
-            <br/>
-                {{ burger.name }}
-            </a>
-        </li>
-        {% endfor %}
-    </ul>
+    <div class="burger_item_container">
+    {% for burger in burgers %}
+    <div class="burger_item">
+        <a href="{% url 'burger_page'  burger.slug %}">
+            <div class="{{burger.slug}}_image burger_images"></div>
+        <br/>
+            {{ burger.name }}
+        </a>
+    </div>
+    {% endfor %}
+    </div>
 {% else %}
     <strong>There are no Burger. So hungry!!</strong><br>
 {% endif %}
 
-<a href="{% url 'add_burger' %}">Give me a New Burger</a><br />
+<div><a href="{% url 'add_burger' %}">Give me a New Burger</a><br /></div>
 {% if burgers %}
 <script type="text/javascript">
     var slugs = [];
