@@ -1,5 +1,6 @@
 from django.contrib import admin
-from burger.models import UserProfile, PointOfInterest, Restaurant, BurgerCategories, Burgers, Comments
+from burger.models import Page, UserProfile, PointOfInterest, Restaurant, BurgerCategories, Burgers, Comments
+
 
 class SlugAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug':('name',)}
