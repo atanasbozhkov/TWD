@@ -54,7 +54,7 @@ class PointOfInterest(models.Model):
     city = models.CharField(max_length=50)
     zipcode = models.CharField(max_length=10)
     position = GeopositionField(blank=True)
-    restaurant = models.OneToOneField(Restaurant, default="")
+    restaurant = models.OneToOneField(Restaurant, null=True)
 
     def __unicode__(self):
         return self.name
@@ -69,8 +69,8 @@ class BurgerCategories(models.Model):
 
 class Burgers(models.Model):
     name = models.CharField(max_length=128)
-    category = models.OneToOneField(BurgerCategories)
-    location = models.OneToOneField(PointOfInterest)
+    category = models.OneToOneField(BurgerCategories, null=True)
+    location = models.OneToOneField(PointOfInterest, null=True)
     worst = models.BooleanField(default=False)
     best = models.BooleanField(default=False)
     def __unicode__(self):
