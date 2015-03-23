@@ -12,6 +12,7 @@
         {% for comment in reviews %}
             {{comment.text}}<br>
             {{comment.user.username}}<br>
+            <img src="{{ MEDIA_URL }}{{comment.user.picture}}"/>
             {{comment.date}}<br>
         {% endfor %}
     </ul>
@@ -39,30 +40,20 @@
 
     <script type="text/javascript">
         var form = $('#review_form');
-        form.on('submit', function(event){
-            event.preventDefault();
-            $.ajax({
-                url : "{% url 'burger_page' slug %}",
-                type : "POST",
-                data: form.serialize(),
-
-                success : function(json) {
-                    $('#id_text').val('');
-                    console.log(json.result);
-                    if (json.result === 'success') {
-                        $('#review').html("");
-                        $('#review').append(json.reviews);
-                    }
-                },
-
-                // handle a non-successful response
-                error : function(xhr,errmsg,err) {
-                    $('#results').html("<div class='alert-box alert radius' data-alert>Oops! We have encountered an error: "+errmsg+
-                        " <a href='#' class='close'>&times;</a></div>"); // add the error to the dom
-                    console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
+        ajaxForm(
+            form,
+            function(json) {
+                $('#id_text').val('');
+                console.log(json.result);
+                if (json.result === 'success') {
+                    $('#review').html("");
+                    $('#review').append(json.reviews);
                 }
-            });
-        });
+            },
+            function(xhr,errmsg,err) {
+                console.log(xhr.status + ": " + xhr.responseText);
+            }
+        );
     </script>
 {% else %}
     The specified burger {{ burger.name }} does not exist!

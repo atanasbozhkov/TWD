@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from burger.models import PointOfInterest, Burgers, Comments
+from burger.models import PointOfInterest, Burgers, Comments, UserProfile
 from burger.forms import UserForm, UserProfileForm, PlaceForm, MapForm, BurgerForm, BurgerCategoryForm, CommentForm
 from django.contrib.auth.decorators import login_required
 import pygeoip, json
@@ -191,9 +191,11 @@ def burger_page(request, burger_slug):
                 if burger:
                     comment = form.save(commit=False)
                     comment.target = burger
-                    comment.user = request.user
+                    # comment.user = request.user
+                    comment.user = UserProfile.objects.get(user=request.user)
                     comment.save()
 
+                    # profile = UserProfile.objects.get(user=request.user)
                     response_data = {}
                     response_data['result'] = "success"
                     response_data['reviews'] = render_to_string('burger/burger_form.html', {'reviews': Comments.objects.filter(target=burger)})
