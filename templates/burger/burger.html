@@ -1,0 +1,71 @@
+{% extends 'burger/base.html' %}
+
+{% block title %}{{burger.name}}{% endblock %}
+
+{% block body_block %}
+
+<h1>{{ burger.name }}</h1>
+{% if burger %}
+    <div id="review">
+    {% if reviews %}
+    <ul>
+        {% for comment in reviews %}
+            {{comment.text}}<br>
+            {{comment.user.username}}<br>
+            {{comment.date}}<br>
+        {% endfor %}
+    </ul>
+    {% else %}
+        <strong>No review currently in {{burger.name}}.</strong><br>
+    {% endif %}
+    </div>
+    {# <a href="{% url 'add_burger_review' slug%}">Add a New Review</a><br /> #}
+    <form id="review_form" method="post" action="{% url 'burger_page' slug%}">
+
+        {% csrf_token %}
+        {% for hidden in form.hidden_fields %}
+            {{ hidden }}
+        {% endfor %}
+
+        {% for field in form.visible_fields %}
+            {{ field.errors }}
+            {{ field.help_text }}
+            {{ field }}
+            <br>
+        {% endfor %}
+
+        <input type="submit" name="submit" value="Submit Review" />
+    </form>
+
+    <script type="text/javascript">
+        var form = $('#review_form');
+        form.on('submit', function(event){
+            event.preventDefault();
+            $.ajax({
+                url : "{% url 'burger_page' slug %}",
+                type : "POST",
+                data: form.serialize(),
+
+                success : function(json) {
+                    $('#id_text').val('');
+                    console.log(json.result);
+                    if (json.result === 'success') {
+                        $('#review').html("");
+                        $('#review').append(json.reviews);
+                    }
+                },
+
+                // handle a non-successful response
+                error : function(xhr,errmsg,err) {
+                    $('#results').html("<div class='alert-box alert radius' data-alert>Oops! We have encountered an error: "+errmsg+
+                        " <a href='#' class='close'>&times;</a></div>"); // add the error to the dom
+                    console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
+                }
+            });
+        });
+    </script>
+{% else %}
+    The specified burger {{ burger.name }} does not exist!
+{% endif %}
+
+{% endblock %}

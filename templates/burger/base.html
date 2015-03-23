@@ -1,7 +1,8 @@
 {% load staticfiles %}
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
-<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
      <head>
         <meta charset="UTF-8">
         <meta charset="utf-8">
@@ -24,6 +25,7 @@
             <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
             <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
         <![endif]-->
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
     </head>
 
     <body>
@@ -35,12 +37,15 @@
                     <li class="sidebar-brand">
                         <a href="{% url 'index' %}">Rate My Burger</a>
                     </li>
+                    <li>
+                        <a href="{% url 'browse_burger' %}">Burger Surf</a>
+                    </li>
                     {% if user.is_authenticated %}
                     <li>
-                        <a href="/burger/add_burger">Post New Burger</a>
+                        <a href="{% url 'add_burger' %}">Post New Burger</a>
                     </li>
                     <li>
-                        <a href="/burger/add_place">Add a new Restaurant</a>
+                        <a href="{% url 'add_place' %}">Add a new Restaurant</a>
                     </li>
                     <li>
                         <a href="{% url 'map_view' %}">Burgers Near me</a>

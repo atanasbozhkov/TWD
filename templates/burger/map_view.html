@@ -69,7 +69,9 @@
                             "{{poi.city}}<br>"+
                             "{{poi.zipcode}}<br>"+
                         "</div>"+
-                        "<img class='map_image' src='{{MEDIA_URL}}{{poi.restaurant.picture}}'>"+
+                        {% if poi.restaurant.picture != '' %}
+                            "<img class='map_image' src='{{MEDIA_URL}}{{poi.restaurant.picture}}'>"+
+                        {% endif %}
                     "</div>"+
                 "</div>";
                 addMarker({{ poi.position.latitude }}, {{ poi.position.longitude }}, "{{ poi.name }}", infowindowDiv);
