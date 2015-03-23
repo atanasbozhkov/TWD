@@ -1,5 +1,4 @@
 {% extends 'burger/base.html' %}
-
 {% block title %}Add Burger{% endblock %}
 
 {% block body_block %}
@@ -29,6 +28,79 @@
 
     <script type="text/javascript">
         $('#id_location').after("<br><span class='redirect_link'><p>cannot find the restaurant location?</p><a href='{% url 'add_place' %}' >Add It Now!</a></span>")
+    </script>
+
+    <div id="map-canvas"></div>
+
+    <script>
+        var map, markerPointer;
+        function initialize() {
+            pos = points[0].fields.position;
+            var mapOptions = {
+                zoom: 13,
+                center: new google.maps.LatLng(pos.split(',')[0], pos.split(',')[1])
+            };
+            map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+            addMarker(mapOptions.center, getInfoWindow(points[0].fields));
+        }
+
+        function addMarker(location, infowindow) {
+            if (markerPointer !== undefined) {
+                markerPointer.setMap(null);
+            }
+            var marker = new google.maps.Marker({
+                position: location,
+                map: map
+            });
+            attachMessage(marker, infowindow);
+            markerPointer = marker;
+        }
+
+        function attachMessage(marker, content) {
+            var infowindow = new google.maps.InfoWindow({
+                content: content,
+                size: new google.maps.Size(50,50)
+            });
+            google.maps.event.addListener(marker, 'click', function() {
+                var anchor = infowindow.getAnchor();
+                if (anchor === undefined || anchor === null) {
+                    infowindow.open(map, marker);
+                }
+                else {
+                    infowindow.close();
+                }
+            });
+        }
+
+        function getInfoWindow(data) {
+            return "<div>"+
+                        "<div>"+
+                            "<h6>"+data.name+"</h6>"+
+                        "</div>"+
+                        "<div class='map_address'>"+
+                            "Address: "+data.address+"<br>"+
+                            "City: "+data.city+"<br>"+
+                            "Zipcode: "+data.zipcode+"<br>"+
+                        "</div>"+
+                    "</div>";
+        }
+
+        var decoded = $("<div/>").html("{{data}}").text();
+        var location_select = $("#id_location");
+        if (decoded.length > 0) {
+            var points = JSON.parse(decoded);
+            if (points.length > 0) {
+                google.maps.event.addDomListener(window, 'load', initialize);
+                location_select.val($($("#id_location option")[1]).val());
+            }
+        }
+        location_select.change(function() {
+            var restaurantId = parseInt($(this).val());
+            var restaurant = points.filter(function(obj){return obj.fields.restaurant === restaurantId})[0].fields;
+            var latlng = new google.maps.LatLng(restaurant.position.split(',')[0], restaurant.position.split(',')[1]);
+            addMarker(latlng, getInfoWindow(restaurant));
+            map.setCenter(latlng);
+        });
     </script>
 
     {% if user.is_superuser %}
