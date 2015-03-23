@@ -62,7 +62,7 @@ class PointOfInterest(models.Model):
         verbose_name_plural = 'points of interest'
 
 class BurgerCategories(models.Model):
-    name = models.CharField(max_length=128)
+    name = models.CharField(max_length=128, unique=True)
     def __unicode__(self):
         return self.name
 

@@ -1,8 +1,11 @@
 from django.shortcuts import render
-from burger.models import Category, Page, PointOfInterest, Restaurant, Burgers
-from burger.forms import CategoryForm, PageForm, UserForm, UserProfileForm, PlaceForm, MapForm, BurgerForm
+from burger.models import Category, Page, PointOfInterest, Burgers
+from burger.forms import CategoryForm, PageForm, UserForm, UserProfileForm, PlaceForm, MapForm, BurgerForm, BurgerCategoryForm
 from django.contrib.auth.decorators import login_required
-import pygeoip
+import pygeoip, json
+from django.http import HttpResponse
+from django.template import RequestContext
+from django.template.loader import render_to_string
 
 def index(request):
     # return HttpResponse("Burger says hey hunger game!")
@@ -227,3 +230,27 @@ def add_restaurant(request):
         location_form = MapForm()
 
     return render(request, 'burger/add_place.html', {'restaurant_form':restaurant_form, "location_form": location_form})
+
+def add_burger_category(request):
+    if request.method == 'POST':
+        form = BurgerCategoryForm(request.POST)
+        response_data = {}
+        
+        if form.is_valid():
+            form.save()
+            response_data['result'] = 'created'
+            burgerForm = BurgerForm()
+            response_data['form'] = render_to_string('burger/burger_form.html', {'form': burgerForm})
+        else:
+            response_data['result'] = 'form invalid'
+
+        return HttpResponse(
+            json.dumps(response_data),
+            content_type="application/json"
+        )
+
+    else:
+        return HttpResponse(
+            json.dumps({"nothing to see": "this isn't happening"}),
+            content_type="application/json"
+        )

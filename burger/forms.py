@@ -74,3 +74,8 @@ class BurgerForm(forms.ModelForm):
     class Meta:
         model = Burgers
         widgets = {'worst': forms.HiddenInput(), 'best': forms.HiddenInput()}
+
+class BurgerCategoryForm(forms.ModelForm):
+    class Meta:
+        model = BurgerCategories
+        field = ('name')

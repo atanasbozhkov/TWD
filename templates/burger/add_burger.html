@@ -8,6 +8,11 @@
     <div class="span12 pagination-centered" style="text-align:center;">
      <h2> Add new burger</h2>
      <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+     <form id='category_add'>
+        {% csrf_token %}
+        <input id='burger_cat_name' maxlength='128' name='name' type='text'>
+        <input type='submit' name='submit' value='Add Burger Category' />
+    </form>
      <form id="category_form" method="post" action="{% url 'add_burger' %}"enctype="multipart/form-data">
 
         {% csrf_token %}
@@ -25,4 +30,35 @@
             <input type="submit" name="submit" value="Add Burger" />
         </form>
     </div>
+    <div id="results"></div>
+
+    <script type="text/javascript">
+        var addCategoryForm = $('#category_add');
+        addCategoryForm.on('submit', function(event){
+            event.preventDefault();
+            $.ajax({
+                url : "{% url 'add_burger_category' %}",
+                type : "POST",
+                data: addCategoryForm.serialize(),
+
+                success : function(json) {
+                    $('#burger_cat_name').val('');
+                    console.log(json);
+                    console.log(json.result);
+                    if (json.result === 'created') {
+                        var categorySelect = $(json.form).find('#id_category');
+                        $("#id_category").html("");
+                        $("#id_category").append(categorySelect.find('option'));
+                    }
+                },
+
+                // handle a non-successful response
+                error : function(xhr,errmsg,err) {
+                    $('#results').html("<div class='alert-box alert radius' data-alert>Oops! We have encountered an error: "+errmsg+
+                        " <a href='#' class='close'>&times;</a></div>"); // add the error to the dom
+                    console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
+                }
+            });
+        });
+    </script>
 {% endblock %}
