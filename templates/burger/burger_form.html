@@ -7,7 +7,9 @@
     {% for comment in reviews %}
         {{comment.text}}<br>
         {{comment.user.username}}<br>
-        <img src="/media/{{comment.user.picture}}"/>
+        {% if comment.user.picture %}
+            <img src="/media/{{comment.user.picture}}"/>
+        {% endif %}
         {{comment.date}}<br>
     {% endfor %}
 </ul>

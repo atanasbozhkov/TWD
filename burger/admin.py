@@ -1,5 +1,5 @@
 from django.contrib import admin
-from burger.models import UserProfile, PointOfInterest, Restaurant, BurgerCategories, Burgers, Comments
+from burger.models import UserProfile, PointOfInterest, Restaurant, BurgerCategories, Burgers, Comments, BurgerPicture
 
 
 class SlugAdmin(admin.ModelAdmin):
@@ -26,3 +26,4 @@ admin.site.register(Restaurant)
 admin.site.register(BurgerCategories, SlugAdmin)
 admin.site.register(Burgers, SlugAdmin)
 admin.site.register(Comments)
+admin.site.register(BurgerPicture)

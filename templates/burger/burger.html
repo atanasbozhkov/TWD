@@ -5,6 +5,7 @@
 {% block body_block %}
 
 <h1>{{ burger.name }}</h1>
+<div class="{{burger.slug}}_image burger_images"></div>
 {% if burger %}
     <div id="review">
     {% if reviews %}
@@ -12,7 +13,9 @@
         {% for comment in reviews %}
             {{comment.text}}<br>
             {{comment.user.username}}<br>
-            <img src="{{ MEDIA_URL }}{{comment.user.picture}}"/>
+            {% if comment.user.picture %}
+                <img src="{{ MEDIA_URL }}{{comment.user.picture}}"/>
+            {% endif %}
             {{comment.date}}<br>
         {% endfor %}
     </ul>
@@ -34,6 +37,7 @@
             {{ field.help_text }} <br/>
             {{ field }}
             <br>
+            {{picture_form}}
         {% endfor %}
 
        <input type="submit" name="submit" class="btn btn-primary btn-lg btn-block" value="Submit Review" /></center>
@@ -57,6 +61,18 @@
         );
     </script>
     {% endif%}
+<script type="text/javascript">
+    getImages(
+        "{{burger.slug}}",
+        function(json) {
+            if (json.urls.length > 0) {
+                for (var idx in json.urls) {
+                    $("."+json.slug + "_image").append("<img src='"+json.urls[idx]+"'>");
+                }
+            }
+        }
+    );
+</script>
 {% else %}
     The specified burger {{ burger.name }} does not exist!
 {% endif %}

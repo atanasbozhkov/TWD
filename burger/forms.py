@@ -1,5 +1,5 @@
 from django import forms
-from burger.models import UserProfile, PointOfInterest, Restaurant, Burgers, BurgerCategories, Comments
+from burger.models import UserProfile, PointOfInterest, Restaurant, Burgers, BurgerCategories, Comments, BurgerPicture
 from django.contrib.auth.models import User
 
 class UserForm(forms.ModelForm):
@@ -56,3 +56,7 @@ class CommentForm(forms.ModelForm):
         model = Comments
         fields = ('text',)
 
+class BurgerPictureForm(forms.ModelForm):
+    class Meta:
+        model = BurgerPicture
+        fields = ('picture',)

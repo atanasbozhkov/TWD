@@ -34,14 +34,27 @@
         <script type="text/javascript">
             function ajaxForm(form, successHandler, failureHandler) {
                 form.on('submit', function(event){
+                    var data = new FormData(form.get(0));
                     event.preventDefault();
                     $.ajax({
                         url: form.attr('action'),
                         type: "POST",
-                        data: form.serialize(),
+                        data: data,
+                        cache: false,
+                        processData: false,
+                        contentType: false,
                         success: successHandler,
                         error: failureHandler
                     });
+                });
+            }
+            function getImages(slug, successHandler) {
+                $.ajax({
+                    url: "{% url 'get_burger_picture' %}",
+                    type: "POST",
+                    data: {"slug": slug, "csrfmiddlewaretoken": $("{% csrf_token %}").val()},
+                    success: successHandler,
+                    error: function(){}
                 });
             }
         </script>

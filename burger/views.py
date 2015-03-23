@@ -1,6 +1,6 @@
 from django.shortcuts import render
-from burger.models import PointOfInterest, Burgers, Comments, UserProfile
-from burger.forms import UserForm, UserProfileForm, PlaceForm, MapForm, BurgerForm, BurgerCategoryForm, CommentForm
+from burger.models import PointOfInterest, Burgers, Comments, UserProfile, BurgerPicture
+from burger.forms import UserForm, UserProfileForm, PlaceForm, MapForm, BurgerForm, BurgerCategoryForm, CommentForm, BurgerPictureForm
 from django.contrib.auth.decorators import login_required
 import pygeoip, json
 from django.http import HttpResponse
@@ -89,13 +89,18 @@ def map_view(request):
 @login_required
 def add_burger(request):
     if request.method == 'POST':
-        burger_form = BurgerForm(request.POST, request.FILES)
+        burger_form = BurgerForm(request.POST)
+        burger_picture_form = BurgerPictureForm(request.POST, request.FILES)
 
-        if burger_form.is_valid():
-            burger= burger_form.save(commit=False)
+        if burger_form.is_valid() and burger_picture_form.is_valid():
+            burger = burger_form.save(commit=True)
+
+            burger_pic = burger_picture_form.save(commit=False)
+            burger_pic.burger = burger
+            burger_pic.slug = burger.slug
             if 'picture' in request.FILES:
-                burger.picture = request.FILES['picture']
-            burger.save()
+                burger_pic.picture = request.FILES['picture']
+            burger_pic.save()
 
             return browse_burger(request)
 
@@ -103,9 +108,10 @@ def add_burger(request):
             print burger_form.errors
     else:
         burger_form = BurgerForm()
+        burger_picture_form = BurgerPictureForm()
         data = serializers.serialize("json", PointOfInterest.objects.all())
 
-    return render(request, 'burger/add_burger.html', {'form':burger_form, 'data':data})
+    return render(request, 'burger/add_burger.html', {'form':burger_form, 'picForm': burger_picture_form, 'data':data})
 
 @login_required
 def add_restaurant(request):
@@ -173,15 +179,22 @@ def burger_page(request, burger_slug):
 
         if request.method == 'POST':
             form = CommentForm(request.POST)
-            if form.is_valid():
+            picture_form = BurgerPictureForm(request.POST, request.FILES)
+
+            if form.is_valid() and  picture_form.is_valid():
                 if burger:
                     comment = form.save(commit=False)
                     comment.target = burger
-                    # comment.user = request.user
                     comment.user = UserProfile.objects.get(user=request.user)
                     comment.save()
 
-                    # profile = UserProfile.objects.get(user=request.user)
+                    burger_pic = picture_form.save(commit=False)
+                    burger_pic.burger = burger
+                    burger_pic.slug = burger.slug
+                    if 'picture' in request.FILES:
+                        burger_pic.picture = request.FILES['picture']
+                    burger_pic.save()
+
                     response_data = {}
                     response_data['result'] = "success"
                     response_data['reviews'] = render_to_string('burger/burger_form.html', {'reviews': Comments.objects.filter(target=burger)})
@@ -193,10 +206,31 @@ def burger_page(request, burger_slug):
             )
         else:
             form = CommentForm()
+            pic_form = BurgerPictureForm()
 
-        context_dict = {'form':form, 'burger': burger, 'slug': burger_slug, "reviews": reviews}
+        context_dict = {'form':form, "picture_form": pic_form, 'burger': burger, 'slug': burger_slug, "reviews": reviews}
 
     except Burgers.DoesNotExist:
         pass
 
     return render(request, 'burger/burger.html', context_dict)
+
+def getPictures(request):
+    if request.method == 'POST':
+        response_data = {}
+
+        pictures = BurgerPicture.objects.all().filter(slug=request.POST.get('slug'))
+        urls = []
+        for pic in pictures:
+            if hasattr(pic.picture, 'url'):
+                urls.append(pic.picture.url)
+        response_data['urls'] = urls
+        response_data['slug'] = request.POST.get('slug')
+
+        return HttpResponse(
+            json.dumps(response_data),
+            content_type="application/json"
+        )
+
+    else:
+        return HttpResponse(json.dumps({"nothing to see": "this isn't happening"}), content_type="application/json")

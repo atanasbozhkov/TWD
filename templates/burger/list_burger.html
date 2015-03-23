@@ -8,12 +8,8 @@
     <ul style="list-style-type: none;">
         {% for burger in burgers %}
         <li>
-            {# <li><a href="{% url 'category'  category.slug %}">{{ burger.name }}</a></li> #}
-
             <a href="{% url 'burger_page'  burger.slug %}">
-                {% if burger.picture != '' %}
-                <img src = "{{ MEDIA_URL }}{{ burger.picture }}" style="width: 250px;">
-                {% endif %}
+                <div class="{{burger.slug}}_image burger_images"></div>
             <br/>
                 {{ burger.name }}
             </a>
@@ -25,5 +21,24 @@
 {% endif %}
 
 <a href="{% url 'add_burger' %}">Give me a New Burger</a><br />
+{% if burgers %}
+<script type="text/javascript">
+    var slugs = [];
+    {% for burger in burgers %}
+    slugs.push("{{burger.slug}}")
+    {% endfor %}
+    for (var slug in slugs) {
+        getImages(
+            slugs[slug],
+            function(json){
+                if (json.urls.length > 0) {
+                    var range = json.urls.length;
+                    $("."+json.slug + "_image").append("<img src='"+json.urls[Math.floor(Math.random()*range)]+"'>");
+                }
+            }
+        );
+    }
+</script>
+{% endif %}
 
 {% endblock %}

@@ -57,7 +57,7 @@ class Burgers(models.Model):
     location = models.ForeignKey(PointOfInterest, null=True, help_text="Location")
     worst = models.BooleanField(default=False)
     best = models.BooleanField(default=False)
-    picture = models.ImageField(upload_to='burger_images', blank=True)
+    # picture = models.ImageField(upload_to='burger_images', blank=True)
     slug = models.SlugField(unique=True, default='', null=True)
 
     def save(self, *args, **kwargs):
@@ -66,6 +66,14 @@ class Burgers(models.Model):
 
     def __unicode__(self):
         return self.name
+
+class BurgerPicture(models.Model):
+    picture = models.ImageField(upload_to='burger_images', blank=True)
+    burger = models.ForeignKey(Burgers)
+    slug = models.SlugField(unique=False, default='', null=True)
+
+    def __unicode__(self):
+        return self.slug
 
 class Comments(models.Model):
     # text = models.CharField(max_length=256, )
