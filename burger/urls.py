@@ -11,7 +11,7 @@ urlpatterns = patterns('',
     url(r'^add_place/', views.add_restaurant, name='add_place'),
     url(r'^register/$', views.register, name='register'),
     url(r'^map/$', views.map, name='map'),
-    url(r'^map_view/$', views.map_view, name='map_view'),
+    url(r'^nearby/$', views.map_view, name='map_view'),
 )
 
 if settings.REGISTRATION_OPEN:

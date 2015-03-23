@@ -1,7 +1,8 @@
 from django.shortcuts import render
-from burger.models import Category, Page, PointOfInterest
+from burger.models import Category, Page, PointOfInterest, Restaurant
 from burger.forms import CategoryForm, PageForm, UserForm, UserProfileForm, PlaceForm, MapForm
 from django.contrib.auth.decorators import login_required
+import pygeoip
 
 def index(request):
     # return HttpResponse("Burger says hey hunger game!")
@@ -165,8 +166,12 @@ def map(request):
     return render(request, 'burger/map.html', {'form': form})
 
 def map_view(request):
+    gi = pygeoip.GeoIP('GeoLiteCity.dat')
+    data = gi.record_by_addr('109.246.189.234')
+    # client_address = request.META.get('HTTP_X_FORWARDED_FOR')
+    client_address = request.META.get('REMOTE_ADDR')
     pois = PointOfInterest.objects.all()
-    return render(request, 'burger/map_view.html', {'pois': pois})
+    return render(request, 'burger/map_view.html', {'pois': pois, "data": data, "ip": client_address})
 
 
 def add_restaurant(request):

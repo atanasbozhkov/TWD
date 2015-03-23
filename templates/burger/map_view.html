@@ -1,38 +1,77 @@
 {% extends 'burger/base.html' %}
-
+{% load staticfiles %}
 {% block title %}Map View{% endblock %}
 
 {% block body_block %}
+
+    <!--{{ip}}
+    {{data}}
+    {{data.latitude}}
+    {{data.longitude}}-->
     <!-- show location -->
-    <h1>Points of Interest</h1>
-
-    <dl>
-        {% for poi in pois %}
-            <dt>{{ poi.name }}</dt>
-            <dd>{{ poi.position }}</dd>
-        {% endfor %}
-    </dl>
-
+    <h1>Burgers Near Me</h1>
     <div id="map-canvas"></div>
 
     <script src="https://maps.googleapis.com/maps/api/js?v=3&sensor=false"></script>
     <script>
         function initialize() {
-            var map = new google.maps.Map(document.getElementById('map-canvas'));
-            var bounds = new google.maps.LatLngBounds();
-            function addMarker(lat, lng, title) {
+            var mapOptions = {
+                zoom: 13,
+                center: new google.maps.LatLng({{data.latitude}}, {{data.longitude}})
+            };
+            var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+            var currentLocation = new google.maps.Marker({
+                position: mapOptions.center,
+                map: map,
+                icon: "{% static 'images/blue-dot.png' %}"
+            });
+            attachMessage(currentLocation, "Your current position")
+            var southWest = new google.maps.LatLng({{data.latitude}},{{data.longitude}}-0.025);
+            var northEast = new google.maps.LatLng({{data.latitude}},{{data.longitude}}+0.025);
+            var bounds = new google.maps.LatLngBounds(southWest,northEast);
+            map.fitBounds(bounds);
+            function addMarker(lat, lng, title, content) {
                 var position = new google.maps.LatLng(lat, lng);
                 var marker = new google.maps.Marker({
                     position: position,
                     map: map,
                     title: title
                 });
-                bounds.extend(position);
+                attachMessage(marker, content);
             }
+            function attachMessage(marker, content) {
+                var infowindow = new google.maps.InfoWindow({
+                    content: content,
+                    size: new google.maps.Size(50,50)
+                });
+                google.maps.event.addListener(marker, 'click', function() {
+                    var anchor = infowindow.getAnchor();
+                    if (anchor === undefined || anchor === null) {
+                        infowindow.open(map, marker);
+                    }
+                    else {
+                        infowindow.close();
+                    }
+                });
+            }
+            var infowindowDiv = "";
             {% for poi in pois %}
-                addMarker({{ poi.position.latitude }}, {{ poi.position.longitude }}, "{{ poi.name }}");
+                infowindowDiv = "<div>"+
+                    "<div>"+
+                        "<h6>{{poi.name}}</h6>"+
+                        "<div class='map_desc'>{{poi.restaurant.desc}}</div><br>"+
+                    "</div>"+
+                    "<div>"+
+                        "<div class='map_address'>"+
+                            "{{poi.address}}<br>"+
+                            "{{poi.city}}<br>"+
+                            "{{poi.zipcode}}<br>"+
+                        "</div>"+
+                        "<img class='map_image' src='{{MEDIA_URL}}{{poi.restaurant.picture}}'>"+
+                    "</div>"+
+                "</div>";
+                addMarker({{ poi.position.latitude }}, {{ poi.position.longitude }}, "{{ poi.name }}", infowindowDiv);
             {% endfor %}
-            map.fitBounds(bounds);
         }
         google.maps.event.addDomListener(window, 'load', initialize);
     </script>

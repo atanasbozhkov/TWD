@@ -19,3 +19,22 @@
     height: 600px;
     width: 90%;
 }
+
+.map_image {
+    width: 100px;
+    float: right;
+}
+
+.map_address {
+    float: left;
+    width: 120px;
+}
+
+.map_desc {
+    width: 250px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}

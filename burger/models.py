@@ -17,7 +17,7 @@ class Category(models.Model):
         return self.name
 
 class Restaurant(models.Model):
-    name = models.CharField(max_length=128, unique=True, help_text="Place Name", default="")
+    name = models.CharField(max_length=128, unique=False, help_text="Place Name", default="")
     desc = models.CharField(max_length=128, unique=False, help_text="Description")
     picture = models.ImageField(upload_to='restaurant_images', blank=True)
     # lat = models.CharField(max_length=10, unique=False, help_text="Latitude", default="")

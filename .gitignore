@@ -3,3 +3,4 @@
 .idea/inspectionProfiles/Project_Default.xml
 burger/views.py.orig
 db.sqlite3
+media/
