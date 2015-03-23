@@ -7,8 +7,8 @@
 
     <div class="span12 pagination-centered" style="text-align:center;">
      <h2> Add new burger</h2>
-     
-     <form id="category_form" method="post" action="{% url 'add_burger' %}" enctype="multipart/form-data">
+    <center>
+     <form id="category_form" method="post" action="{% url 'add_burger' %}" class="form-group"enctype="multipart/form-data">
 
         {% csrf_token %}
         {% for hidden in form.hidden_fields %}
@@ -17,23 +17,24 @@
 
         {% for field in form.visible_fields %}
             {{ field.errors }}
-            {{ field.help_text }}
+            {{ field.help_text }} <br/>
             {{ field }}
             <br>
         {% endfor %}
 
-            <input type="submit" name="submit" value="Add Burger" />
+            <input type="submit" name="submit" value="Add Burger" class="btn btn-primary btn-lg btn-block" style="margin-top:5px;"/>
         </form>
+    </center>
     </div>
     <div id="results"></div>
-
+    <center>
     {% if user.is_superuser %}
     <form id='category_add' action="{% url 'add_burger_category' %}">
         {% csrf_token %}
-        <input id='burger_cat_name' maxlength='128' name='name' type='text'>
-        <input type='submit' name='submit' value='Add Burger Category' />
+        <input id='burger_cat_name' maxlength='128' name='name' type='text' class="form-control login-field" placeholder="Category"><br/>
+        <input type='submit' name='submit' value='Add Burger Category' class="btn btn-primary btn-lg btn-block" style="margin-top:5px;"/>
     </form>
-    
+    </center>
     <script type="text/javascript">
         var form = $('#category_add');
         ajaxForm(

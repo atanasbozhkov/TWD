@@ -68,8 +68,8 @@ class Burgers(models.Model):
         return self.name
 
 class Comments(models.Model):
-    # text = models.CharField(max_length=256, help_text="Insert comment")
-    text = models.TextField()
+    # text = models.CharField(max_length=256, )
+    text = models.TextField(help_text="Insert comment")
     user = models.ForeignKey(UserProfile)
     target = models.ForeignKey(Burgers)
     date = models.DateTimeField(auto_now_add=True, blank=True)
