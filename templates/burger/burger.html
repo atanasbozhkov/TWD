@@ -7,6 +7,8 @@
 <h1>{{ burger.name }}</h1>
 <div class="{{burger.slug}}_image burger_images galleria"></div>
 {% if burger %}
+    <div class="burger_right">
+    <h6>Review</h6>
     <div id="review">
         {% if reviews %}
         <ul>
@@ -23,9 +25,8 @@
            <center> <strong>No review currently in {{burger.name}}.</strong></center><br>
         {% endif %}
     </div>
-
     {% if user.is_authenticated %}
-        <center><form id="review_form" method="post" class="form-group" action="{% url 'burger_page' slug%}">
+        <form id="review_form" method="post" class="form-group" action="{% url 'burger_page' slug%}">
 
             {% csrf_token %}
             {% for hidden in form.hidden_fields %}
@@ -61,8 +62,11 @@
             );
         </script>
     {% endif%}
+    </div>
 
-    <div id="map-canvas"></div>
+    <h6>Where To Find It</h6>
+    <div id="map-canvas-burger"></div>
+
     <script>
         function initialize() {
             var mapOptions = {
@@ -72,7 +76,7 @@
                     {{burger.location.position.longitude}}
                 )
             };
-            var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+                var map = new google.maps.Map(document.getElementById('map-canvas-burger'), mapOptions);
             var marker = new google.maps.Marker({
                 position: mapOptions.center,
                 map: map

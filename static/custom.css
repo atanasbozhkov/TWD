@@ -71,5 +71,20 @@
 }
 
 .galleria {
-    width: auto;
+    width: 100%;
+}
+
+#review {
+    overflow: scroll;
+    height: 300px;
+    width: 450px;
+}
+
+#map-canvas-burger {
+    height: 500px;
+    width: 450px;
+}
+
+.burger_right {
+    float: right;
 }
