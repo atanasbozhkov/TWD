@@ -77,20 +77,6 @@ def register(request):
 def registerClosed(request):
     return render(request, 'registration/registration_closed.html')
 
-@login_required
-def map(request):
-    if request.method == 'POST':
-        form = MapForm(request.POST)
-        if form.is_valid():
-            form.save(commit=True)
-            return index(request)
-        else:
-            print form.errors
-    else:
-        form = MapForm()
-
-    return render(request, 'burger/map.html', {'form': form})
-
 def map_view(request):
     gi = pygeoip.GeoIP('GeoLiteCity.dat')
     data = gi.record_by_addr('109.246.189.234')
