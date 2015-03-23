@@ -63,6 +63,7 @@
                         $('#review').html("");
                         $('#review').append(json.reviews);
                     }
+                    $("#review").scrollTop($("#review")[0].scrollHeight);
                 },
                 function(xhr,errmsg,err) {
                     console.log(xhr.status + ": " + xhr.responseText);
@@ -73,6 +74,11 @@
     </div>
 
     <h6>Where To Find It</h6>
+    <div>
+        Address : {{burger.location.address}}<br>
+        City : {{burger.location.city}}<br>
+        Zipcode : {{burger.location.zipcode}}<br>
+    </div>
     <div id="map-canvas-burger"></div>
 
     <script>
@@ -91,6 +97,7 @@
             });
         }
         google.maps.event.addDomListener(window, 'load', initialize);
+        $("#review").scrollTop($("#review")[0].scrollHeight);
     </script>
 
     <script type="text/javascript">
@@ -103,6 +110,9 @@
                     }
                     Galleria.loadTheme("{% static 'galleria.classic.min.js' %}");
                     Galleria.run('.burger_images');
+                }
+                else {
+                    $(".galleria").hide();
                 }
             }
         );

@@ -76,7 +76,6 @@ class BurgerPicture(models.Model):
         return self.slug
 
 class Comments(models.Model):
-    # text = models.CharField(max_length=256, )
     text = models.TextField(help_text="Give Review")
     user = models.ForeignKey(UserProfile)
     target = models.ForeignKey(Burgers)
