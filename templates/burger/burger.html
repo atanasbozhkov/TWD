@@ -1,0 +1,26 @@
+{% extends 'burger/base.html' %}
+
+{% block title %}{{burger_name}}{% endblock %}
+
+{% block body_block %}
+
+<h1>{{ burger_name }}</h1>
+{% if burger %}
+    {% if reviews %}
+    <ul>
+        {% for comment in reviews %}
+        {# <li><a href="{{ page.url }}">{{ page.title }}</a></li> #}
+        {{comment.text}}<br>
+        {{comment.user.username}}<br>
+        {{comment.date}}<br>
+        {% endfor %}
+    </ul>
+    {% else %}
+        <strong>No review currently in {{burger_name}}.</strong><br>
+    {% endif %}
+    <a href="{% url 'add_burger_review' slug%}">Add a New Review</a><br />
+{% else %}
+    The specified burger {{ burger_name }} does not exist!
+{% endif %}
+
+{% endblock %}

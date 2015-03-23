@@ -1,0 +1,27 @@
+{% extends 'burger/base.html' %}
+
+{% block title %}Burger Surf{% endblock %}
+
+{% block body_block %}
+
+{% if burgers %}
+    <ul>
+        {% for burger in burgers %}
+        <li>
+            {# <li><a href="{% url 'category'  category.slug %}">{{ burger.name }}</a></li> #}
+            <a href="{% url 'burger_page'  burger.slug %}">
+                {% if burger.picture != '' %}
+                <img src = "{{ MEDIA_URL }}{{ burger.picture }}">
+                {% endif %}
+                {{ burger.name }}
+            </a>
+        </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <strong>There are no Burger. So hungry!!</strong><br>
+{% endif %}
+
+<a href="{% url 'add_burger' %}">Give me a New Burger</a><br />
+
+{% endblock %}

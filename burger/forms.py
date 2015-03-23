@@ -1,5 +1,5 @@
 from django import forms
-from burger.models import Page, Category, UserProfile, PointOfInterest, Restaurant, Burgers, BurgerCategories
+from burger.models import Page, Category, UserProfile, PointOfInterest, Restaurant, Burgers, BurgerCategories, Comments
 from django.contrib.auth.models import User
 
 class CategoryForm(forms.ModelForm):
@@ -71,11 +71,21 @@ class MapForm(forms.ModelForm):
         fields = ('address', 'city', 'zipcode', 'position')
 
 class BurgerForm(forms.ModelForm):
+    slug = forms.CharField(widget=forms.HiddenInput(), required=False)
     class Meta:
         model = Burgers
-        widgets = {'worst': forms.HiddenInput(), 'best': forms.HiddenInput()}
+        exclude = ('worst', 'best')
+        # widgets = {'worst': forms.HiddenInput(), 'best': forms.HiddenInput()}
 
 class BurgerCategoryForm(forms.ModelForm):
+    slug = forms.CharField(widget=forms.HiddenInput(), required=False)
+
     class Meta:
         model = BurgerCategories
-        field = ('name')
+        fields = ('name',)
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comments
+        fields = ('text',)
+

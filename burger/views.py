@@ -1,10 +1,9 @@
 from django.shortcuts import render
-from burger.models import Category, Page, PointOfInterest, Burgers
-from burger.forms import CategoryForm, PageForm, UserForm, UserProfileForm, PlaceForm, MapForm, BurgerForm, BurgerCategoryForm
+from burger.models import Category, Page, PointOfInterest, Burgers, Comments
+from burger.forms import CategoryForm, PageForm, UserForm, UserProfileForm, PlaceForm, MapForm, BurgerForm, BurgerCategoryForm, CommentForm
 from django.contrib.auth.decorators import login_required
 import pygeoip, json
 from django.http import HttpResponse
-from django.template import RequestContext
 from django.template.loader import render_to_string
 
 def index(request):
@@ -233,11 +232,12 @@ def add_restaurant(request):
 
 def add_burger_category(request):
     if request.method == 'POST':
+
         form = BurgerCategoryForm(request.POST)
         response_data = {}
         
         if form.is_valid():
-            form.save()
+            form.save(commit=True)
             response_data['result'] = 'created'
             burgerForm = BurgerForm()
             response_data['form'] = render_to_string('burger/burger_form.html', {'form': burgerForm})
@@ -254,3 +254,51 @@ def add_burger_category(request):
             json.dumps({"nothing to see": "this isn't happening"}),
             content_type="application/json"
         )
+
+def browse_burger(request):
+    burgerList = Burgers.objects.all()
+    context_dict = {'burgers': burgerList}
+    return render(request, 'burger/list_burger.html', context_dict)
+
+def burger_page(request, burger_slug):
+    context_dict = {}
+    try:
+        burger = Burgers.objects.get(slug=burger_slug)
+        context_dict['burger_name'] = burger.name
+
+        reviews = Comments.objects.filter(target=burger)
+
+        context_dict['reviews'] = reviews
+        context_dict['burger'] = burger
+        context_dict['slug'] = burger_slug
+    except Burgers.DoesNotExist:
+        pass
+
+    return render(request, 'burger/burger.html', context_dict)
+
+def add_burger_review(request, burger_slug):
+
+    try:
+        burger = Burgers.objects.get(slug=burger_slug)
+    except Burgers.DoesNotExist:
+        burger = None
+
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            if burger:
+                comment = form.save(commit=False)
+                comment.target = burger
+                comment.user = request.user
+                comment.save()
+                # probably better to use a redirect here.
+                return burger_page(request, burger_slug)
+        else:
+            print form.errors
+    else:
+        form = CommentForm()
+
+    context_dict = {'form':form, 'burger': burger, 'slug': burger_slug}
+
+    return render(request, 'burger/add_review.html', context_dict)
+

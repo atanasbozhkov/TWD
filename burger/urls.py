@@ -5,15 +5,19 @@ from burger import views
 urlpatterns = patterns('',
     url(r'^$', views.index, name='index'),
     url(r'^categoryList/', views.categoryList, name='categoryList'),
-    url(r'^category/(?P<category_name_slug>[\w\-]+)/$', views.category, name='category'),
     url(r'^add_category/$', views.add_category, name='add_category'),
+    url(r'^category/(?P<category_name_slug>[\w\-]+)/$', views.category, name='category'),
     url(r'^add_page/(?P<category_name_slug>[\w\-]+)/$', views.add_page, name='add_page'),
+
     url(r'^add_place/', views.add_restaurant, name='add_place'),
-    url(r'^add_burger/', views.add_burger, name='add_burger'),
+    url(r'^newburger/', views.add_burger, name='add_burger'),
     url(r'^register/$', views.register, name='register'),
     url(r'^map/$', views.map, name='map'),
     url(r'^nearby/$', views.map_view, name='map_view'),
     url(r'^add_burger_category/$', views.add_burger_category, name='add_burger_category'),
+    url(r'^burgersurfing/$', views.browse_burger, name='browse_burger'),
+    url(r'^(?P<burger_slug>[\w\-]+)/$', views.burger_page, name='burger_page'),
+    url(r'^add_review/(?P<burger_slug>[\w\-]+)/$', views.add_burger_review, name='add_burger_review'),
 )
 
 if settings.REGISTRATION_OPEN:

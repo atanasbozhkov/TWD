@@ -63,6 +63,12 @@ class PointOfInterest(models.Model):
 
 class BurgerCategories(models.Model):
     name = models.CharField(max_length=128, unique=True)
+    slug = models.SlugField(unique=True, default='', null=True)
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+        super(BurgerCategories, self).save(*args, **kwargs)
+
     def __unicode__(self):
         return self.name
 
@@ -73,11 +79,21 @@ class Burgers(models.Model):
     location = models.ForeignKey(PointOfInterest, null=True, help_text="Location")
     worst = models.BooleanField(default=False)
     best = models.BooleanField(default=False)
+    picture = models.ImageField(upload_to='burger_images', blank=True)
+    slug = models.SlugField(unique=True, default='', null=True)
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+        super(Burgers, self).save(*args, **kwargs)
+
     def __unicode__(self):
         return self.name
 
 class Comments(models.Model):
     text = models.CharField(max_length=256, help_text="Insert comment")
-    userID = models.OneToOneField(UserProfile)
-    target = models.OneToOneField(Burgers)
+    user = models.ForeignKey(User)
+    target = models.ForeignKey(Burgers)
     date = models.DateTimeField(auto_now_add=True, blank=True)
+
+    def __unicode__(self):
+        return self.text

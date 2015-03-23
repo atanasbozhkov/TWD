@@ -36,12 +36,15 @@
                     <li class="sidebar-brand">
                         <a href="{% url 'index' %}">Rate My Burger</a>
                     </li>
+                    <li>
+                        <a href="{% url 'browse_burger' %}">Burger Surf</a>
+                    </li>
                     {% if user.is_authenticated %}
                     <li>
-                        <a href="/burger/add_burger">Post New Burger</a>
+                        <a href="{% url 'add_burger' %}">Post New Burger</a>
                     </li>
                     <li>
-                        <a href="/burger/add_place">Add a new Restaurant</a>
+                        <a href="{% url 'add_place' %}">Add a new Restaurant</a>
                     </li>
                     <li>
                         <a href="{% url 'map_view' %}">Burgers Near me</a>
