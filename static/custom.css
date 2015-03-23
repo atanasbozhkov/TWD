@@ -78,6 +78,7 @@
     overflow: scroll;
     height: 300px;
     width: 450px;
+    margin-bottom: 20px;
 }
 
 #map-canvas-burger {
@@ -87,4 +88,27 @@
 
 .burger_right {
     float: right;
+}
+
+.review {
+    border-bottom: 1px solid #999;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    position:  relative;
+}
+
+.review_right {
+    position: absolute;
+    left: 70px;
+    bottom: 10px;
+}
+
+.profile_img {
+    height: 50px;
+    width: 50px;
+}
+
+.profile_img img{
+    height: 100%;
+    overflow: hidden;
 }

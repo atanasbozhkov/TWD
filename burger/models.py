@@ -77,7 +77,7 @@ class BurgerPicture(models.Model):
 
 class Comments(models.Model):
     # text = models.CharField(max_length=256, )
-    text = models.TextField(help_text="Insert comment")
+    text = models.TextField(help_text="Give Review")
     user = models.ForeignKey(UserProfile)
     target = models.ForeignKey(Burgers)
     date = models.DateTimeField(auto_now_add=True, blank=True)

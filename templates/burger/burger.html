@@ -13,12 +13,20 @@
         {% if reviews %}
         <ul>
             {% for comment in reviews %}
-                {{comment.text}}<br>
-                {{comment.user.username}}<br>
-                {% if comment.user.picture %}
-                    <img src="{{ MEDIA_URL }}{{comment.user.picture}}"/>
-                {% endif %}
-                {{comment.date}}<br>
+                <div class="review">
+                    {{comment.text}}<br>
+                    <div class="profile_img">
+                        {% if comment.user.picture %}
+                            <img src="{{ MEDIA_URL }}{{comment.user.picture}}"/>
+                        {% else %}
+                            <img src="{% static 'default.png' %}"/>
+                        {% endif %}
+                    </div>
+                    <div class="review_right">
+                        {{comment.user}}<br>
+                        {{comment.date}}
+                    </div>
+                </div>
             {% endfor %}
         </ul>
         {% else %}
