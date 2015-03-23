@@ -8,7 +8,7 @@
     <div class="span12 pagination-centered" style="text-align:center;">
      <h2> Add new burger</h2>
     <center>
-     <form id="category_form" method="post" action="{% url 'add_burger' %}" class="form-group"enctype="multipart/form-data">
+     <form id="category_form" method="post" action="{% url 'add_burger' %}" class="" enctype="multipart/form-data">
 
         {% csrf_token %}
         {% for hidden in form.hidden_fields %}
@@ -41,6 +41,14 @@
     </form>
     </center>
     <script type="text/javascript">
+
+        $(document).ready(function(){
+            $('#id_location')[0].style.width = "200px";
+            $('#id_location').selectize();
+            $('#id_category')[0].style.width = "200px";
+            $('#id_category').selectize();
+        })
+
         var form = $('#category_add');
         ajaxForm(
             form,

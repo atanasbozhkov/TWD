@@ -30,6 +30,10 @@ class MapForm(forms.ModelForm):
 
 class BurgerForm(forms.ModelForm):
     slug = forms.CharField(widget=forms.HiddenInput(), required=False)
+
+    def __init__(self, *args, **kwargs):
+        super(BurgerForm, self).__init__(*args, **kwargs)
+        self.fields['location'].empty_label = ""
     class Meta:
         model = Burgers
         exclude = ('worst', 'best')
@@ -42,9 +46,9 @@ class BurgerCategoryForm(forms.ModelForm):
         model = BurgerCategories
         fields = ('name',)
         widgets = {
-           'name' : forms.TextInput(attrs={'class': 'form-control'}),
-           'category' : forms.TextInput(attrs={'class': 'form-control'}),
-           'location' : forms.TextInput(attrs={'class': 'form-control'})
+           # 'name' : forms.TextInput(attrs={'class': 'form-control'}),
+           # 'category' : forms.TextInput(attrs={'class': 'form-control'}),
+           # 'location' : forms.TextInput(attrs={'class': 'form-control'})
         }
 
 class CommentForm(forms.ModelForm):
