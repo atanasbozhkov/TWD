@@ -61,7 +61,9 @@ class PlaceForm(forms.ModelForm):
        model = Restaurant
        fields = ('name', 'desc', 'picture')
        widgets = {
-           'name' : forms.TextInput(attrs={'class': 'form-control'})
+           'name' : forms.TextInput(attrs={'class': 'form-control'}),
+           'desc' : forms.TextInput(attrs={'class': 'form-control'}),
+           'address' : forms.TextInput(attrs={'class': 'form-control'})
        }
 class MapForm(forms.ModelForm):
     class Meta:

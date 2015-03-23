@@ -8,6 +8,7 @@
     <div class="span12 pagination-centered" style="text-align:center;">
      <h2> Add new place</h2>
      <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+
      <form id="category_form" method="post" action="{% url 'add_place' %}"enctype="multipart/form-data">
 
             {% csrf_token %}
@@ -17,5 +18,20 @@
 
             <input type="submit" name="submit" value="Add Place" />
         </form>
+
     </div>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var inputs = $('input');
+            for (var i = 0;i<inputs.length;i++){
+                if(i!=3){
+                    inputs[i].className = "form-control";
+                }
+
+            }
+            $('#id_position_0')[0].closest('table').style.display = "none";
+        })
+
+    </script>
 {% endblock %}
