@@ -17,8 +17,8 @@ class Category(models.Model):
         return self.name
 
 class Restaurant(models.Model):
-    name = models.CharField(max_length=128, unique=False, help_text="Place Name", default="")
-    desc = models.CharField(max_length=128, unique=False, help_text="Description")
+    name = models.CharField(max_length=128, unique=False, default="")
+    desc = models.CharField(max_length=128, unique=False)
     picture = models.ImageField(upload_to='restaurant_images', blank=True)
     # lat = models.CharField(max_length=10, unique=False, help_text="Latitude", default="")
     # lon = models.CharField(max_length=10, unique=False, help_text="Longitude", default="")
@@ -68,10 +68,16 @@ class BurgerCategories(models.Model):
 
 
 class Burgers(models.Model):
-    name = models.CharField(max_length=128)
-    category = models.OneToOneField(BurgerCategories, null=True)
-    location = models.OneToOneField(PointOfInterest, null=True)
+    name = models.CharField(max_length=128, help_text="Burger Name")
+    category = models.OneToOneField(BurgerCategories, null=True, help_text="Category")
+    location = models.OneToOneField(PointOfInterest, null=True, help_text="Location")
     worst = models.BooleanField(default=False)
     best = models.BooleanField(default=False)
     def __unicode__(self):
         return self.name
+
+class Comments(models.Model):
+    text = models.CharField(max_length=256, help_text="Insert comment")
+    userID = models.OneToOneField(UserProfile)
+    target = models.OneToOneField(Burgers)
+    date = models.DateTimeField(auto_now_add=True, blank=True)

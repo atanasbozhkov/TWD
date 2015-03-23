@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from burger.models import Category, Page, PointOfInterest, Restaurant
-from burger.forms import CategoryForm, PageForm, UserForm, UserProfileForm, PlaceForm, MapForm
+from burger.forms import CategoryForm, PageForm, UserForm, UserProfileForm, PlaceForm, MapForm, BurgerForm
 from django.contrib.auth.decorators import login_required
 import pygeoip
 
@@ -172,6 +172,28 @@ def map_view(request):
     client_address = request.META.get('REMOTE_ADDR')
     pois = PointOfInterest.objects.all()
     return render(request, 'burger/map_view.html', {'pois': pois, "data": data, "ip": client_address})
+
+
+def add_burger(request):
+    if request.method == 'POST':
+        burger_form = BurgerForm(request.POST, request.FILES)
+
+
+        if burger_form.is_valid():
+            burger= burger_form.save(commit=False)
+            if 'picture' in request.FILES:
+                burger.picture = request.FILES['picture']
+            burger.save()
+
+            return index(request)
+
+        else:
+            print burger_form.errors
+    else:
+        burger_form = BurgerForm()
+
+
+    return render(request, 'burger/add_burger.html', {'form':burger_form})
 
 
 def add_restaurant(request):
