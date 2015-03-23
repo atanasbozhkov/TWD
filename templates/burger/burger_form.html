@@ -1,9 +1,13 @@
+<!-- this is for add category -->
 {{form.as_p}}
+
+<!-- this is for add review -->
 {% if reviews %}
 <ul>
     {% for comment in reviews %}
         {{comment.text}}<br>
         {{comment.user.username}}<br>
+        <img src="/media/{{comment.user.picture}}"/>
         {{comment.date}}<br>
     {% endfor %}
 </ul>
