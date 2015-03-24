@@ -71,7 +71,8 @@
 }
 
 .galleria {
-    width: 100%;
+    /*width: 100%;*/
+    width:1000px;
 }
 
 #review {
@@ -126,4 +127,8 @@ ul {
 
 .avg_rating {
     font-size: 35px;
+}
+
+#page-content-wrapper {
+    width: 1000px;
 }
