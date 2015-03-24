@@ -3,12 +3,12 @@
 {% block title %}{{burger.name}}{% endblock %}
 
 {% block body_block %}
+{% if burger %}
 <script src="{% static 'galleria-1.4.2.min.js'%}"></script>
 <h1>{{ burger.name }}</h1>
 This burger is categorised as: {{burger.category}}<br>
 Average Rating: <div class='avg_rating'>{{avg_rating.rating__avg}}</div>
 <div class="{{burger.slug}}_image burger_images galleria"></div>
-{% if burger %}
     <div class="burger_right">
     <h6>Review</h6>
     <div id="review">
