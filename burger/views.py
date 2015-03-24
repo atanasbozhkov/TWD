@@ -82,10 +82,10 @@ def registerClosed(request):
 def map_view(request):
     gi = pygeoip.GeoIP('GeoLiteCity.dat')
     data = gi.record_by_addr('109.246.189.234')
-    # client_address = request.META.get('HTTP_X_FORWARDED_FOR')
-    client_address = request.META.get('REMOTE_ADDR')
+    x_address = request.META.get('HTTP_X_FORWARDED_FOR')
+    remote_address = request.META.get('REMOTE_ADDR')
     pois = PointOfInterest.objects.all()
-    return render(request, 'burger/map_view.html', {'pois': pois, "data": data, "ip": client_address})
+    return render(request, 'burger/map_view.html', {'pois': pois, "data": data, "remote": remote_address, "x": x_address})
 
 @login_required
 def add_burger(request):
