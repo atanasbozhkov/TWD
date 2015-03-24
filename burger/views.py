@@ -1,4 +1,4 @@
-from django.shortcuts import render, render_to_response
+from django.shortcuts import render
 from burger.models import PointOfInterest, Burgers, Comments, UserProfile, BurgerPicture
 from burger.forms import UserForm, UserProfileForm, PlaceForm, MapForm, BurgerForm, BurgerCategoryForm, CommentForm, BurgerPictureForm
 from django.contrib.auth.decorators import login_required
@@ -7,8 +7,7 @@ from django.http import HttpResponse
 from django.template.loader import render_to_string
 from django.core import serializers
 import re
-from django.db.models import Q
-from django.template import RequestContext
+from django.db.models import Q, Avg
 
 def index(request):
     best = Comments.objects.extra(select={'sum':'rating'}).order_by('-sum')
@@ -178,6 +177,7 @@ def burger_page(request, burger_slug):
     try:
         burger = Burgers.objects.get(slug=burger_slug)
         reviews = Comments.objects.filter(target=burger)
+        score = Comments.objects.filter(target=burger).aggregate(Avg('rating'))
 
         if request.method == 'POST':
             form = CommentForm(request.POST)
@@ -197,9 +197,13 @@ def burger_page(request, burger_slug):
                         burger_pic.picture = request.FILES['picture']
                     burger_pic.save()
 
+                    reviews = Comments.objects.filter(target=burger)
+                    score = Comments.objects.filter(target=burger).aggregate(Avg('rating'))
+
                     response_data = {}
                     response_data['result'] = "success"
-                    response_data['reviews'] = render_to_string('burger/burger_form.html', {'reviews': Comments.objects.filter(target=burger)})
+                    response_data['reviews'] = render_to_string('burger/burger_form.html', {'reviews': reviews})
+                    response_data['avg_rating'] = score
             else:
                 response_data['result'] = 'form invalid'
             return HttpResponse(
@@ -210,7 +214,7 @@ def burger_page(request, burger_slug):
             form = CommentForm()
             pic_form = BurgerPictureForm()
 
-        context_dict = {'form':form, "picture_form": pic_form, 'burger': burger, 'slug': burger_slug, "reviews": reviews}
+        context_dict = {'form':form, "picture_form": pic_form, 'burger': burger, 'slug': burger_slug, "reviews": reviews, "avg_rating":score}
 
     except Burgers.DoesNotExist:
         pass
@@ -286,10 +290,6 @@ def search(request):
         for burger in found_entries:
             response_data['burger'].append(burger.slug)
 
-
-    # return render_to_response('burger/index.html',
-    #                       { 'query_string': query_string, 'found_entries': found_entries },
-    #                       context_instance=RequestContext(request))
     return HttpResponse(
             json.dumps(response_data),
             content_type="application/json")

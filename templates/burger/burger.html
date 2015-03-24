@@ -5,7 +5,8 @@
 {% block body_block %}
 <script src="{% static 'galleria-1.4.2.min.js'%}"></script>
 <h1>{{ burger.name }}</h1>
-This burger is categorised as: {{burger.category}}
+This burger is categorised as: {{burger.category}}<br>
+Average Rating: <div class='avg_rating'>{{avg_rating.rating__avg}}</div>
 <div class="{{burger.slug}}_image burger_images galleria"></div>
 {% if burger %}
     <div class="burger_right">
@@ -63,6 +64,7 @@ This burger is categorised as: {{burger.category}}
                     if (json.result === 'success') {
                         $('#review').html("");
                         $('#review').append(json.reviews);
+                        $('.avg_rating').text(json.avg_rating.rating__avg);
                     }
                     $("#review").scrollTop($("#review")[0].scrollHeight);
                 },
