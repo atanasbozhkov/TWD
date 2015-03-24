@@ -10,7 +10,12 @@ from django.core import serializers
 def index(request):
     best = Comments.objects.extra(select={'sum':'rating'}).order_by('-sum')
     comments = Comments.objects.order_by('-date')
-    return render(request, 'burger/index.html', {"best": best[0], "reviews": comments})
+    result = {}
+    if best:
+        result['best'] = best[0]
+    if comments:
+        result['reviews'] = comments
+    return render(request, 'burger/index.html', result)
 
 def register(request):
 
