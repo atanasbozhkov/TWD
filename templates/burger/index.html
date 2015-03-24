@@ -16,9 +16,9 @@
         <div class="row">
             <div class="left-col">
                 <h2> Burger King</h2>
-                of the month <br>
+                of the month goes to .......<br>
                 {% if best %}
-                <h4>{{ best.target.name }}</h4> <br/>
+                <a href="{% url 'burger_page' best.target.slug %}"><h1>{{ best.target.name }}</h1></a><br/>
                 Available at: <br/>
                 Address: {{ best.target.location.address }}<br>
                 City: {{ best.target.location.city }}<br>
