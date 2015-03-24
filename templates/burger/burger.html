@@ -5,6 +5,7 @@
 {% block body_block %}
 <script src="{% static 'galleria-1.4.2.min.js'%}"></script>
 <h1>{{ burger.name }}</h1>
+This burger is categorised as: {{burger.category}}
 <div class="{{burger.slug}}_image burger_images galleria"></div>
 {% if burger %}
     <div class="burger_right">
@@ -96,8 +97,14 @@
                 map: map
             });
         }
-        google.maps.event.addDomListener(window, 'load', initialize);
-        $("#review").scrollTop($("#review")[0].scrollHeight);
+        $(document).ready(function() {
+            google.maps.event.addDomListener(window, 'load', initialize);
+            $("#review").scrollTop($("#review")[0].scrollHeight);
+            if ($("label[for='id_picture']").length > 1)
+                $($("label[for='id_picture']")[0]).remove()
+            if ($("input[name='picture']").length > 1)
+                $($("input[name='picture']")[0]).remove()
+        });
     </script>
 
     <script type="text/javascript">

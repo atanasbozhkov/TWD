@@ -4,42 +4,57 @@
 {% load staticfiles %} <!-- New line -->
 
 {% block body_block %}
-    <div id="wrapper">
+    {% if user.is_authenticated %}
+        Hello  {{ user.username }} oh might Burger eater!<br>
+    {% endif %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+                <input class="form-control mega-search" id="navbarInput-01" type="search" placeholder="Search for burgers/restaurants">
+            </div>
+        </div>
+        <div class="row">
+            <div class="left-col">
+                <h2> Burger King</h2>
+                of the month <br>
+                {% if best %}
+                <h4>{{ best.target.name }}</h4> <br/>
+                Available at: <br/>
+                Address: {{ best.target.location.address }}<br>
+                City: {{ best.target.location.city }}<br>
+                Zipcode: {{ best.target.location.zipcode }}<br>
 
-        <!-- Page Content -->
-        <div id="page-content-wrapper">
-            {% if user.is_authenticated %}
-                Hello  {{ user.username }} oh might Burger eater!<br>
-            {% endif %}
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <input class="form-control mega-search" id="navbarInput-01" type="search" placeholder="Search for burgers/pubs/restaurants">
-                    </div>
+                {% endif %}
+
+            </div>
+
+            <div class="right-col">
+                <h2> Recent Comment </h2>
+                <div id="review_main">
+                {% if reviews %}
+                <ul>
+                    {% for comment in reviews %}
+                        <div class="review">
+                            Burger: {{comment.target.name}}<br>
+                            Review: {{comment.text}}<br>
+                            <div class="profile_img">
+                                {% if comment.user.picture %}
+                                    <img src="{{ MEDIA_URL }}{{comment.user.picture}}"/>
+                                {% else %}
+                                    <img src="{% static 'default.png' %}"/>
+                                {% endif %}
+                            </div>
+                            <div class="review_right">
+                                {{comment.user}}<br>
+                                {{comment.date}}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </ul>
                 </div>
-                <div class="row">
-                    <div class="left-col">
-                        <h2> Burger King</h2>
-                        of the month <br>
-                        {% if best %}
-                        <h4>{{ best.name }}</h4> <br/>
-                        Available at: <br/>
-                        {{ best.location }}
-
-                        {% endif %}
-
-                    </div>
-
-                    <div class="right-col">
-                        <h2> Worst Burger </h2>
-                        this month <br/>
-                        {% if worst %}
-                        <h4> {{ worst.name }}</h4> <br/>
-                        Available at: <br/>
-                        {{ worst.location }}
-                        {% endif %}
-                    </div>
-                </div>
+                {% else %}
+                   <center> <strong>No review currently in {{burger.name}}.</strong></center><br>
+                {% endif %}
             </div>
         </div>
     </div>

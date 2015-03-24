@@ -76,6 +76,14 @@ class BurgerPicture(models.Model):
         return self.slug
 
 class Comments(models.Model):
+    scores = (
+        ('1', '1'),
+        ('2', '2'),
+        ('3', '3'),
+        ('4', '4'),
+        ('5', '5'),
+    )
+    rating = models.CharField(max_length=1, choices=scores, help_text='Rate The Burger')
     text = models.TextField(help_text="Give Review")
     user = models.ForeignKey(UserProfile)
     target = models.ForeignKey(Burgers)

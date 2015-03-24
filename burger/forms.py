@@ -54,7 +54,7 @@ class BurgerCategoryForm(forms.ModelForm):
 class CommentForm(forms.ModelForm):
     class Meta:
         model = Comments
-        fields = ('text',)
+        fields = ('text', 'rating',)
 
 class BurgerPictureForm(forms.ModelForm):
     class Meta:

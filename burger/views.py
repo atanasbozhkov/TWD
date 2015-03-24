@@ -8,15 +8,9 @@ from django.template.loader import render_to_string
 from django.core import serializers
 
 def index(request):
-    # return HttpResponse("Burger says hey hunger game!")
-    best = Burgers.objects.all().filter(best=True)
-    worst = Burgers.objects.all().filter(worst=True)
-    if(best):
-        if(worst):
-             context_dict = {'boldmessage': "I am bold font from the context", 'best': best[0], 'worst': worst[0]}
-    else:
-         context_dict = {'boldmessage': "I am bold font from the context"}
-    return render(request, 'burger/index.html', context_dict)
+    best = Comments.objects.extra(select={'sum':'rating'}).order_by('-sum')
+    comments = Comments.objects.order_by('-date')
+    return render(request, 'burger/index.html', {"best": best[0], "reviews": comments})
 
 def register(request):
 
