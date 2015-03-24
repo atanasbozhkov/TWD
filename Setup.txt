@@ -1,0 +1,53 @@
+--------------------------------------SETUP--------------------------------------
+0) The application has been developed on Python 2.7.6. Before checking it
+out download the pip requirements (pip install -r requirements.txt). Then
+migrate (python manage.py makemigrations; python manage.py migrate) and 
+run the suerver (python manage.py runserver). 
+1) LOGIN - click on 'Login' and then 'Register.'
+2) Provide a 'username' and 'password.' You can use 'admin' username and
+'admin' password which provides access to the database through the admin
+panel.
+3) ADD A NEW RESTAURANT - a new restaurant has to be added to be
+used for a burger location. A restaurant's name, description, photo,
+address, city and postcode can be provided. Furthermore, the map can
+be used. The pointer provides the exact address of a location which
+can then be used to fill in the text fields. The address appears below
+the map. Finally, click 'Add Place.'
+4) POST NEW BURGER - choose a burger name, category, location and 
+photo. Locations that have been specified in step 3 will appear on
+the map. Clicking on 'Add It Now!' below the Location combo box will
+redirect the user to step 3. Click 'Add Burger.'
+5) BURGER SURF - now that a burger is added it will appear in this 
+section of the app. You will be redirected here directly from step
+4.
+6) You can click on the burger's phote or name. A new page will appear
+showing all of the details of the concrete burger - the place where
+it can be eaten, the address of the restaurant, the comments given
+for this burger and the rate of it.
+7) You can enter a comment in the text box below 'Give Review.' Choose
+a number from 1 to 5 to rate the burger (1 being the lowest). Add an
+additional image of the burger if you have tasted it as well. Click
+'Submit Review' and your comment will appear with your name next to it.
+The rating is used to choose the Burger King. Refreshing the page 
+will show all images added of the specific burger. 
+8) BURGERS NEAR ME - will show all added restaurant near your location.
+9) CHANGE PASSWOD - will allow you to change your password by re-verifying
+your old password.
+10) RATE MY BURGER - this is the main page that will appear regardless
+of the fact that you are logged in or not. It shows the Burger King of the
+Month which will depend on the user rating. It will also show the place at
+which it can be found. This page will also present the most recent comments
+of the users.
+
+
+
+--------------------------------------PIP--------------------------------------
+requirements.txt
+
+
+----------------------------LINK TO REPOSITORY---------------------------------
+https://github.com/atanasbozhkov/TWD.git
+
+
+---------------------------LINK TO PYTHONANYWHERE------------------------------
+http://ckhokelvin.pythonanywhere.com/
