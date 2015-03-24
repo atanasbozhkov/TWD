@@ -12,6 +12,7 @@ urlpatterns = patterns('',
     url(r'^burgersurfing/$', views.browse_burger, name='browse_burger'),
     url(r'^(?P<burger_slug>[\w\-]+)/$', views.burger_page, name='burger_page'),
     url(r'^getPicture', views.getPictures, name='get_burger_picture'),
+    url(r'^search', views.search, name='search'),
 )
 
 if settings.REGISTRATION_OPEN:
